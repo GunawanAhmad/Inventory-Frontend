@@ -58,8 +58,9 @@ body {
   font-size: 1.4rem;
   font-weight: 400;
   background-color: var(--primary-clr);
-  transition: all 50ms linear;
+  transition: all 20ms linear;
   padding: 0 1rem;
+  cursor: text;
 }
 
 .input:focus + .label {
@@ -78,69 +79,4 @@ body {
 
 .input:valid + .label {
   top: 0;
-}
-
-.checkbox-container {
-  position: relative;
-  padding-left: 25px;
-  height: 20px;
-  display: flex;
-  align-items: center;
-  cursor: pointer;
-  margin: 0.5rem 0;
-  font-size: 1.4rem;
-  font-weight: 600;
-  margin-bottom: 3rem;
-}
-
-/* Hide the real input */
-.checkbox-container input {
-  opacity: 0;
-}
-
-/* the container for the circle of checkbox button */
-.checkbox-container .fake-checkbox {
-  position: absolute;
-  left: 0;
-  top: -1px;
-  height: 100%;
-  width: 20px;
-  border: 2px solid var(--secondary-clr);
-  border-radius: 5px;
-}
-
-/* create main circle in the middle of checkbox button */
-.checkbox-container .fake-checkbox::before {
-  content: "";
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -60%) rotate(45deg);
-  height: 0px;
-  width: 0px;
-  /* background-color: var(--black); */
-  border: solid var(--secondary-clr);
-  border-width: 0 2px 2px 0;
-  transition: all 150ms ease;
-  opacity: 0;
-}
-
-/* condition when the checkbox is checked */
-.checkbox-container input:checked ~ .fake-checkbox::before {
-  height: 50%;
-  width: 30%;
-  opacity: 1;
-}
-
-/* condition when the checkbox is dsisabled (change the color and opacity) */
-.checkbox-container input:disabled ~ .fake-checkbox::before {
-  /* background-color: grey; */
-  opacity: 0.7;
-}
-
-/* condition when the checkbox is dsisabled (change the border and opacity) */
-
-.checkbox-container input:disabled ~ .fake-checkbox {
-  border: 1px solid grey;
-  opacity: 0.7;
 }

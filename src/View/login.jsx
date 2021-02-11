@@ -1,10 +1,40 @@
-import React from "react";
+import React, { useState } from "react";
 import "../css/login.css";
 
-function Login() {
+function LoginPage() {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+
+  async function login(e) {
+    e.preventDefault();
+
+    const requestOptions = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      body: JSON.stringify({
+        username: username,
+        password: password,
+      }),
+    };
+    try {
+      const response = await fetch(
+        "http://localhost:5000/login",
+        requestOptions
+      );
+      const json = await response.json();
+      console.log(json);
+    } catch (err) {
+      const rs = err.response;
+      console.log(rs);
+    }
+  }
+
   return (
     <div className="container">
-      <form action="" className="form">
+      <form action="" className="form" onSubmit={login}>
         <h3 className="title">LOGIN</h3>
         <div className="form_div">
           <input
@@ -13,6 +43,7 @@ function Login() {
             id="username"
             required
             className="input"
+            onChange={(e) => setUsername(e.target.value)}
           />
           <label htmlFor="username" className="label">
             Username
@@ -25,20 +56,17 @@ function Login() {
             id="password"
             required
             className="input"
+            onChange={(e) => setPassword(e.target.value)}
           />
           <label htmlFor="password" className="label">
             Password
           </label>
         </div>
-        <label class="checkbox-container">
-          Remember me
-          <input type="checkbox" />
-          <span class="fake-checkbox"></span>
-        </label>
+
         <button className="btn">LOGIN</button>
       </form>
     </div>
   );
 }
 
-export default Login;
+export default LoginPage;
