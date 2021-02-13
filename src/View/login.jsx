@@ -4,6 +4,7 @@ import "../css/login.css";
 function LoginPage() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [errMsg, setErrMsg] = useState("");
 
   async function login(e) {
     e.preventDefault();
@@ -25,15 +26,15 @@ function LoginPage() {
         requestOptions
       );
       const json = await response.json();
-      console.log(json);
+      localStorage.setItem("token", json.accesToken);
     } catch (err) {
       const rs = err.response;
-      console.log(rs);
+      setErrMsg({ errMsg: rs.message });
     }
   }
 
   return (
-    <div className="container">
+    <div className="container-login-page">
       <form action="" className="form" onSubmit={login}>
         <h3 className="title">LOGIN</h3>
         <div className="form_div">

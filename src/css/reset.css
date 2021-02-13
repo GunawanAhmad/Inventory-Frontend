@@ -1,0 +1,15 @@
+:root {
+  --primary-clr: #ffffff;
+  --secondary-clr: #2c2c2c;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+html {
+  font-size: 62.5%;
+}

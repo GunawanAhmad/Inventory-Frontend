@@ -14,31 +14,39 @@ html {
   font-size: 62.5%;
 }
 
-body {
+.container-login-page {
+  min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 100vh;
 }
 
-.form {
+.container-login-page .form {
   width: 30rem;
 }
 
-.form_div {
+.container-login-page .form .btn {
+  width: 100%;
+  height: 5rem;
+  background: var(--secondary-clr);
+  color: var(--primary-clr);
+  border: none;
+  font-size: 1.4rem;
+  border-radius: 5px;
+}
+
+.container-login-page .form .form_div {
   width: 100%;
   height: 5rem;
   position: relative;
   margin-bottom: 3rem;
 }
 
-.form .title {
-  font-size: 2.4rem;
-  font-weight: 600;
-  margin-bottom: 3rem;
+.container-login-page .form .form_div .input:valid + .label {
+  top: 0;
 }
 
-.form_div input {
+.container-login-page .form .form_div input {
   position: absolute;
   width: 100%;
   height: 100%;
@@ -50,7 +58,7 @@ body {
   border-radius: 5px;
 }
 
-.form_div label {
+.container-login-page .form .form_div .form_div label {
   position: absolute;
   left: 2rem;
   top: 50%;
@@ -63,20 +71,13 @@ body {
   cursor: text;
 }
 
-.input:focus + .label {
+.container-login-page .form .form_div .input:focus + .label {
   top: 0;
 }
 
-.btn {
-  width: 100%;
-  height: 5rem;
-  background: var(--secondary-clr);
-  color: var(--primary-clr);
-  border: none;
-  font-size: 1.4rem;
-  border-radius: 5px;
-}
-
-.input:valid + .label {
-  top: 0;
+.container-login-page .form .title {
+  font-size: 2.4rem;
+  font-weight: 600;
+  margin-bottom: 3rem;
+  text-align: center;
 }

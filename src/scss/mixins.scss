@@ -1,0 +1,7 @@
+@mixin triangle() {
+  display: block;
+  border-width: 6px;
+  border-style: solid;
+  border-color: var(--secondary-clr) transparent transparent transparent;
+  margin-top: 2rem;
+}

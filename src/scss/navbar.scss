@@ -1,0 +1,47 @@
+@import "./reset.scss";
+@import "./mixins.scss";
+
+.header {
+  width: 100%;
+  margin: 5rem 0;
+
+  nav {
+    max-width: 1366px;
+    padding: 0 2rem;
+    padding-right: 4rem;
+    margin: auto;
+    ul {
+      display: flex;
+      justify-content: flex-end;
+
+      li {
+        list-style: none;
+        margin-left: 6rem;
+        font-size: 1.8rem;
+        font-weight: 600;
+        color: var(--secondary-clr);
+
+        &.dropdown {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          position: relative;
+          cursor: pointer;
+
+          &::before {
+            content: "";
+            @include triangle;
+            position: absolute;
+            right: -120%;
+
+            transform: translateY(-50%);
+          }
+        }
+
+        ul {
+          display: none;
+        }
+      }
+    }
+  }
+}
