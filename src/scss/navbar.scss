@@ -27,19 +27,53 @@
           justify-content: center;
           position: relative;
           cursor: pointer;
+          // border: 1px solid red;
 
-          &::before {
-            content: "";
+          .triangle {
             @include triangle;
-            position: absolute;
+            margin-left: 0.5rem;
             right: -120%;
-
             transform: translateY(-50%);
+            margin-top: 2rem;
           }
-        }
 
-        ul {
-          display: none;
+          ul {
+            position: absolute;
+            border: 2px solid var(--secondary-clr);
+            top: 200%;
+            right: 0;
+            display: flex;
+            flex-direction: column;
+            width: 20rem;
+
+            &.hide {
+              display: none;
+            }
+
+            &::before {
+              content: "";
+              position: absolute;
+              @include triangle;
+              top: -13px;
+              right: 1.5rem;
+              transform: rotate(180deg);
+            }
+
+            a {
+              padding: 1rem 2rem;
+
+              li {
+                margin: 0;
+                display: flex;
+                justify-content: flex-start;
+                align-items: center;
+              }
+
+              &:last-child {
+                padding-top: 0;
+              }
+            }
+          }
         }
       }
     }

@@ -1,1 +1,14 @@
-/* No CSS */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+.app-container {
+  max-width: 1366px;
+  margin: auto;
+}
