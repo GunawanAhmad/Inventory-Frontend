@@ -1,0 +1,112 @@
+:root {
+  --primary-clr: #ffffff;
+  --secondary-clr: #2c2c2c;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+a {
+  text-decoration: none;
+}
+
+.beranda-container .header-section {
+  display: flex;
+  align-items: center;
+  flex: 0 0 0;
+}
+
+.beranda-container .header-section .title {
+  font-size: 3.6rem;
+  margin-right: 3rem;
+}
+
+.beranda-container .header-section .select-milik {
+  position: relative;
+  font-size: 1.4rem;
+  flex-grow: 0;
+  display: flex;
+  align-items: center;
+  padding: 0.5rem 2rem;
+  border-radius: 25px;
+  border: 1px solid var(--secondary-clr);
+  height: 4.5rem;
+  cursor: pointer;
+  margin-right: 3rem;
+}
+
+.beranda-container .header-section .select-milik span {
+  pointer-events: none;
+}
+
+.beranda-container .header-section .select-milik .triangle {
+  display: block;
+  border-width: 6px;
+  border-style: solid;
+  border-color: var(--secondary-clr) transparent transparent transparent;
+  display: inline;
+  margin-top: 2rem;
+  transform: translateY(-60%);
+  margin-left: 1rem;
+}
+
+.beranda-container .header-section .select-milik .list {
+  position: absolute;
+  top: 100%;
+  width: 100%;
+  left: 0;
+  border: 1px solid var(--secondary-clr);
+  margin-top: 1rem;
+  border-radius: 5px;
+}
+
+.beranda-container .header-section .select-milik .list li {
+  list-style: none;
+  padding: 0.5rem 2rem;
+}
+
+.beranda-container .header-section .select-milik .list li:hover {
+  background-color: var(--secondary-clr);
+  color: var(--primary-clr);
+}
+
+.beranda-container .header-section .select-milik.hide .list {
+  display: none;
+}
+
+.beranda-container .header-section .search-input {
+  font-size: 1.4rem;
+  position: relative;
+  height: 4.5rem;
+  width: 20rem;
+  border: 1px solid var(--secondary-clr);
+  border-radius: 25px;
+  overflow: hidden;
+}
+
+.beranda-container .header-section .search-input svg {
+  position: absolute;
+  top: 50%;
+  left: 1.5rem;
+  transform: translateY(-50%);
+  z-index: 2;
+}
+
+.beranda-container .header-section .search-input input {
+  padding: 1.5rem 2rem;
+  padding-left: 3.5rem;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  border: none;
+  border-radius: 25px;
+  outline: none;
+}
