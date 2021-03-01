@@ -60,17 +60,21 @@
             }
 
             a {
-              padding: 1rem 2rem;
-
               li {
+                padding: 0.5rem 2rem;
                 margin: 0;
                 display: flex;
                 justify-content: flex-start;
                 align-items: center;
+
+                &:hover {
+                  background-color: var(--secondary-clr);
+                  color: white;
+                }
               }
 
-              &:last-child {
-                padding-top: 0;
+              &:hover {
+                background-color: var(--secondary-clr);
               }
             }
           }

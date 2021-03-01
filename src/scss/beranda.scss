@@ -31,7 +31,6 @@
 
       .triangle {
         @include triangle;
-        display: inline;
         margin-top: 2rem;
         transform: translateY(-60%);
         margin-left: 1rem;
@@ -47,6 +46,7 @@
         border: 1px solid var(--secondary-clr);
         margin-top: 1rem;
         border-radius: 5px;
+        z-index: 98;
 
         li {
           list-style: none;
@@ -91,6 +91,91 @@
         border: none;
         border-radius: 25px;
         outline: none;
+      }
+    }
+  }
+  .select-status {
+    margin-top: 2rem;
+    position: relative;
+    max-width: 250px;
+    min-width: 150px;
+    cursor: pointer;
+
+    p {
+      font-size: 1.8rem;
+      pointer-events: none;
+
+      .triangle {
+        @include triangle;
+        display: inline-block;
+        margin-top: 2rem;
+        transform: translateY(30%);
+        margin-left: 1rem;
+        cursor: pointer;
+        pointer-events: none;
+      }
+    }
+
+    .list {
+      position: absolute;
+      top: 100%;
+      width: 70%;
+      left: 0;
+      border: 1px solid var(--secondary-clr);
+      margin-top: 1rem;
+      font-size: 1.4rem;
+      border-radius: 5px;
+      background-color: var(--primary-clr);
+      z-index: 99;
+
+      li {
+        list-style: none;
+        padding: 0.5rem 2rem;
+
+        &:hover {
+          background-color: var(--secondary-clr);
+          color: var(--primary-clr);
+        }
+      }
+    }
+
+    &.hide .list {
+      display: none;
+    }
+  }
+
+  .list-section {
+    margin-top: 5rem;
+    overflow-y: auto;
+    max-height: 400px;
+    position: relative;
+    // border: 1px solid red;
+    .table-container {
+      border-collapse: collapse;
+      position: relative;
+
+      .table-head {
+        border-collapse: collapse;
+        border-bottom: 1px solid #bababa;
+        margin-bottom: 2rem;
+
+        th {
+          padding: 1rem 10rem 2rem 0;
+          font-size: 1.4rem;
+          color: #bababa;
+        }
+      }
+
+      td {
+        font-size: 1.4rem;
+        font-weight: 500;
+        padding: 1rem 1rem 1rem 0;
+
+        img {
+          height: 80px;
+          width: 80px;
+          border-radius: 20px;
+        }
       }
     }
   }
