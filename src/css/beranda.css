@@ -199,3 +199,19 @@ a {
   width: 80px;
   border-radius: 20px;
 }
+
+.beranda-container .option-section {
+  display: flex;
+  margin-top: 2rem;
+  justify-content: flex-end;
+}
+
+.beranda-container .option-section .btn {
+  background: var(--secondary-clr);
+  color: var(--primary-clr);
+  border: none;
+  font-size: 1.4rem;
+  border-radius: 5px;
+  padding: 1rem 2rem;
+  cursor: pointer;
+}

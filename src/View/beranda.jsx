@@ -78,6 +78,27 @@ function Login() {
     selectStatus.current.classList.toggle("hide");
   }
 
+  function searchFilter(filterValue) {
+    //getValue of Input
+
+    //get item in the ul
+    let items = document.querySelectorAll(".item");
+
+    //lopp through collection item list
+    for (let i = 0; i < items.length; i++) {
+      let itemName = items[i].querySelector(".item-name");
+
+      //if matched
+      if (
+        itemName.innerText.toUpperCase().indexOf(filterValue.toUpperCase()) > -1
+      ) {
+        items[i].style.display = "";
+      } else {
+        items[i].style.display = "none";
+      }
+    }
+  }
+
   return (
     <div className="beranda-container">
       <section className="header-section">
@@ -104,11 +125,15 @@ function Login() {
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
           >
-            <circle cx="7" cy="7" r="6" stroke="#2C2C2C" stroke-width="2" />
-            <path d="M11 11L15 15" stroke="#2C2C2C" stroke-width="2" />
+            <circle cx="7" cy="7" r="6" stroke="#2C2C2C" strokeWidth="2" />
+            <path d="M11 11L15 15" stroke="#2C2C2C" strokeWidth="2" />
           </svg>
 
-          <input type="text" placeholder="search..." />
+          <input
+            type="text"
+            placeholder="search..."
+            onKeyUp={(e) => searchFilter(e.target.value)}
+          />
         </div>
       </section>
       <section
@@ -120,7 +145,7 @@ function Login() {
           Status : {status} <span className="triangle"></span>
         </p>
         <ul className="list hide">
-          <li onClick={() => changeStatusList("All")}>Semua</li>
+          <li onClick={() => changeStatusList("Semua")}>Semua</li>
           <li onClick={() => changeStatusList("Ada")}>Ada</li>
           <li onClick={() => changeStatusList("Dipinjam")}>Dipinjam</li>
           <li onClick={() => changeStatusList("Hilang")}>Hilang</li>
@@ -146,7 +171,7 @@ function Login() {
                 <td>
                   <img src={img} alt="img" />
                 </td>
-                <td>{filteredList.nama}</td>
+                <td className="item-name">{filteredList.nama}</td>
                 <td>{filteredList.kondisi}</td>
                 <td>{filteredList.lokasi}</td>
                 <td>{filteredList.status}</td>
@@ -157,6 +182,9 @@ function Login() {
               </tr>
             ))}
         </table>
+      </section>
+      <section className="option-section">
+        <button className="btn">Download as CSV</button>
       </section>
     </div>
   );

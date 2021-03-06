@@ -179,4 +179,20 @@
       }
     }
   }
+
+  .option-section {
+    display: flex;
+    margin-top: 2rem;
+    justify-content: flex-end;
+
+    .btn {
+      background: var(--secondary-clr);
+      color: var(--primary-clr);
+      border: none;
+      font-size: 1.4rem;
+      border-radius: 5px;
+      padding: 1rem 2rem;
+      cursor: pointer;
+    }
+  }
 }
