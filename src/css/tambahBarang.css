@@ -1,0 +1,164 @@
+:root {
+  --primary-clr: #ffffff;
+  --secondary-clr: #2c2c2c;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+a {
+  text-decoration: none;
+}
+
+.container-tambah-barang {
+  min-height: calc(100vh - 30rem);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.container-tambah-barang .form {
+  width: 30rem;
+  padding-bottom: 5rem;
+}
+
+.container-tambah-barang .form .btn {
+  width: 100%;
+  height: 5rem;
+  background: var(--secondary-clr);
+  color: var(--primary-clr);
+  border: none;
+  font-size: 1.4rem;
+  border-radius: 5px;
+  margin-top: 3rem;
+  cursor: pointer;
+}
+
+.container-tambah-barang .form .form_div {
+  width: 100%;
+  position: relative;
+}
+
+.container-tambah-barang .form .form_div label {
+  font-size: 1.4rem;
+  margin-bottom: 0.5rem;
+  margin-top: 2rem;
+  display: block;
+}
+
+.container-tambah-barang .form .form_div .input {
+  width: 100%;
+  height: 5rem;
+  padding: 0 2rem;
+  font-weight: 500;
+  border: 2px solid var(--secondary-clr);
+  border-radius: 5px;
+  position: relative;
+  overflow: hidden;
+  font-size: 1.8rem;
+}
+
+.container-tambah-barang .form .form_div .input .custom-file-upload {
+  display: block;
+  width: 100%;
+  position: absolute;
+  display: flex;
+  align-items: center;
+  top: 0;
+  padding: 0 2rem;
+  margin: 0;
+  bottom: 0;
+  right: 0;
+}
+
+.container-tambah-barang .form .form_div .input.double {
+  border: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0;
+}
+
+.container-tambah-barang .form .form_div .input.double .input {
+  position: relative;
+  text-align: center;
+  width: 46%;
+  border: 2px solid var(--secondary-clr);
+  border-radius: 5px;
+}
+
+.container-tambah-barang .form .form_div .input.double .input input {
+  position: absolute;
+  width: 100%;
+  left: 0;
+  text-align: center;
+}
+
+.container-tambah-barang .form .form_div .input input[type="file"] {
+  display: none !important;
+}
+
+.container-tambah-barang .form .form_div .input input {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  border: none;
+  outline: none;
+  z-index: 1;
+  font-size: 1.8rem;
+}
+
+.container-tambah-barang .form .form_div .input .triangle {
+  display: inline-block;
+  border-width: 6px;
+  border-style: solid;
+  border-color: var(--secondary-clr) transparent transparent transparent;
+  position: absolute;
+  top: 55%;
+  right: 1rem;
+  z-index: 2;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+.container-tambah-barang .form .form_div .input-list {
+  position: absolute;
+  top: 120%;
+  width: 100%;
+  background-color: var(--primary-clr);
+  border: 1px solid var(--secondary-clr);
+  border-radius: 5px;
+  z-index: 10;
+}
+
+.container-tambah-barang .form .form_div .input-list li {
+  list-style: none;
+  text-align: left;
+  padding: 0.5rem 1rem;
+  font-size: 1.4rem;
+  cursor: pointer;
+}
+
+.container-tambah-barang .form .form_div .input-list li:hover {
+  background-color: var(--secondary-clr);
+  color: var(--primary-clr);
+}
+
+.container-tambah-barang .form .form_div .input-list.hide {
+  display: none;
+}
+
+.container-tambah-barang .form .title {
+  font-size: 2.4rem;
+  font-weight: 600;
+  margin-bottom: 3rem;
+  text-align: center;
+}
