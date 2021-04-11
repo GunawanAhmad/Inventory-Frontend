@@ -3,6 +3,7 @@ import BarangDetail from "./View/barangDetail";
 import Beranda from "./View/beranda";
 import Navbar from "./components/navbar";
 import TambahBarang from "./View/tambahBarang";
+import EditBarang from "./View/editBarang";
 import "./css/app.css";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
@@ -15,6 +16,7 @@ function App() {
           <Switch>
             <Route exact path="/" component={Beranda} />
             <Route path="/tambah-barang" component={TambahBarang} />
+            <Route path="/edit-barang" component={EditBarang} />
             <Route path="/login" component={Login} />
             <Route path="/:id" component={BarangDetail} />
           </Switch>
