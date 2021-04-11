@@ -1,0 +1,48 @@
+:root {
+  --primary-clr: #ffffff;
+  --secondary-clr: #2c2c2c;
+}
+
+.container {
+  width: 400px;
+  margin: auto;
+}
+
+.container .img {
+  max-width: 400px;
+  width: 100%;
+  min-width: 300px;
+  height: auto;
+  border: 2px solid black;
+  border-radius: 20px;
+  margin-bottom: 5rem;
+}
+
+.container .section {
+  margin-bottom: 2rem;
+}
+
+.container .section .label {
+  font-size: 1.6rem;
+  color: #c4c4c4;
+}
+
+.container .section .content {
+  font-size: 1.8rem;
+  font-weight: 600;
+}
+
+.container .section.btns {
+  display: flex;
+}
+
+.container .section.btns .btn {
+  background: var(--secondary-clr);
+  color: var(--primary-clr);
+  width: 50%;
+  padding: 0.5rem 0;
+  border: none;
+  border-radius: 5px;
+  font-size: 1.8rem;
+  margin-right: 2rem;
+}
