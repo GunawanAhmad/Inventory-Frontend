@@ -56,7 +56,8 @@ a {
 
 .container-tambah-barang .form .form_div .input {
   width: 100%;
-  height: 5rem;
+  min-height: 5rem;
+  height: auto;
   padding: 0 2rem;
   font-weight: 500;
   border: 2px solid var(--secondary-clr);
@@ -64,6 +65,25 @@ a {
   position: relative;
   overflow: hidden;
   font-size: 1.8rem;
+}
+
+.container-tambah-barang .form .form_div .input.photo-input {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+}
+
+.container-tambah-barang .form .form_div .input.photo-input .icon {
+  background: white;
+  height: 100%;
+  width: 65px;
+  position: absolute;
+  right: 0;
+  pointer-events: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .container-tambah-barang .form .form_div .input .custom-file-upload {
@@ -99,7 +119,8 @@ a {
   position: absolute;
   width: 100%;
   left: 0;
-  text-align: center;
+  text-align: left;
+  padding: 0 2rem;
 }
 
 .container-tambah-barang .form .form_div .input input[type="file"] {

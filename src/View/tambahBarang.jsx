@@ -5,6 +5,8 @@ function TamnbahBarang() {
   const [kondisiBarang, setKondisiBarang] = React.useState("Baik");
   const [milik, setMilik] = React.useState("Internal");
   const [satuanBarang, setSatuanBarang] = React.useState("Pcs");
+  const [photo, setPhoto] = React.useState(null);
+  const [bukti, setBukti] = React.useState(null);
 
   function openListInput(inputElm, check) {
     let container;
@@ -55,6 +57,13 @@ function TamnbahBarang() {
     setSatuanBarang(e.target.textContent);
     let suggestionBox = e.target.parentElement;
     suggestionBox.classList.add("hide");
+  }
+
+  function getFilePhoto(e) {
+    setPhoto(e.target.files[0]);
+  }
+  function getFileBukti(e) {
+    setBukti(e.target.files[0]);
   }
 
   return (
@@ -179,13 +188,59 @@ function TamnbahBarang() {
           <label htmlFor="lokasiBarang" className="label">
             Foto
           </label>
-          <div className="input">
+          <div className="input photo-input">
             <label for="file-upload" className="custom-file-upload">
-              Choose file
+              {photo ? photo.name : "Choose file"}
             </label>
-            <input id="file-upload" type="file" />
+            <div className="icon">
+              <i class="fa fa-file"></i>
+            </div>
+            <input id="file-upload" type="file" onChange={getFilePhoto} />
           </div>
         </div>
+
+        {milik == "Eksternal" && (
+          <div className="exsternal_option">
+            <div className="form_div">
+              <label htmlFor="namaBarang" className="label">
+                Nama / organisasi pemilik
+              </label>
+              <input
+                type="text"
+                name="namaBarang"
+                id="namaBarang"
+                required
+                className="input"
+              />
+            </div>
+            <div className="form_div">
+              <label htmlFor="namaBarang" className="label">
+                Tanggal
+              </label>
+              <input
+                type="date"
+                name="namaBarang"
+                id="namaBarang"
+                required
+                className="input"
+              />
+            </div>
+            <div className="form_div">
+              <label htmlFor="lokasiBarang" className="label">
+                Bukti peminjaman
+              </label>
+              <div className="input photo-input">
+                <label for="bukti-upload" className="custom-file-upload">
+                  {bukti ? bukti.name : "Choose file"}
+                </label>
+                <div className="icon">
+                  <i class="fa fa-file"></i>
+                </div>
+                <input id="bukti-upload" type="file" onChange={getFileBukti} />
+              </div>
+            </div>
+          </div>
+        )}
 
         <button className="btn">SUBMIT</button>
       </form>
