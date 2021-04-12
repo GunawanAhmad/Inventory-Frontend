@@ -51,6 +51,14 @@ a {
   cursor: pointer;
 }
 
+.header nav ul li.dropdown svg {
+  transition: transform 250ms ease;
+}
+
+.header nav ul li.dropdown svg.rotate {
+  transform: rotateZ(45deg);
+}
+
 .header nav ul li.dropdown .triangle {
   display: inline-block;
   border-width: 6px;
@@ -69,7 +77,9 @@ a {
   right: 0;
   display: flex;
   flex-direction: column;
-  width: 20rem;
+  width: 25rem;
+  z-index: 99;
+  background: var(--primary-clr);
 }
 
 .header nav ul li.dropdown ul.hide {
@@ -103,4 +113,16 @@ a {
 
 .header nav ul li.dropdown ul a:hover {
   background-color: var(--secondary-clr);
+}
+
+@media only screen and (max-width: 600px) {
+  .header nav ul {
+    justify-content: space-between;
+  }
+  .header nav ul li {
+    margin: 0;
+  }
+  .header nav ul li span {
+    display: none;
+  }
 }

@@ -29,6 +29,14 @@
           cursor: pointer;
           // border: 1px solid red;
 
+          svg {
+            transition: transform 250ms ease;
+
+            &.rotate {
+              transform: rotateZ(45deg);
+            }
+          }
+
           .triangle {
             @include triangle;
             margin-left: 0.5rem;
@@ -44,7 +52,9 @@
             right: 0;
             display: flex;
             flex-direction: column;
-            width: 20rem;
+            width: 25rem;
+            z-index: 99;
+            background: var(--primary-clr);
 
             &.hide {
               display: none;
@@ -77,6 +87,22 @@
                 background-color: var(--secondary-clr);
               }
             }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .header {
+    nav {
+      ul {
+        justify-content: space-between;
+        li {
+          margin: 0;
+          span {
+            display: none;
           }
         }
       }

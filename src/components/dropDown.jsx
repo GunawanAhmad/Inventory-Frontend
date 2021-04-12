@@ -8,6 +8,9 @@ function Dropdown() {
         <li>Tambah barang</li>
       </Link>
       <Link>
+        <li>Download as CSV</li>
+      </Link>
+      <Link>
         <li>Logout</li>
       </Link>
     </ul>

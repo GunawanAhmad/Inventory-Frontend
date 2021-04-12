@@ -12,3 +12,7 @@ html {
   max-width: 1366px;
   margin: auto;
 }
+
+body {
+  padding: 0 1rem;
+}

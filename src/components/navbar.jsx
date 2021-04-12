@@ -5,6 +5,12 @@ import "../css/navbar.css";
 
 function Navbar(props) {
   const [dropdown, setDropdown] = useState(false);
+  const plusSvg = React.createRef();
+
+  function toggleDropdown() {
+    setDropdown(!dropdown);
+    plusSvg.current.classList.toggle("rotate");
+  }
 
   return (
     <header className="header">
@@ -14,19 +20,30 @@ function Navbar(props) {
             <li>INVENTORY</li>
           </Link>
           <Link to="history-peminajaman">
-            <li>HISTORY PEMINJAMAN</li>
+            <li>
+              HISTORY <span>PEMINJAMAN</span>
+            </li>
           </Link>
-          <li className="dropdown" onClick={() => setDropdown(!dropdown)}>
+          <li className="dropdown" onClick={toggleDropdown}>
             <svg
-              width="15"
-              height="15"
-              viewBox="0 0 17 17"
+              width="18"
+              height="18"
+              viewBox="0 0 64 64"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
+              ref={plusSvg}
             >
-              <path d="M9 0V17" stroke="black" strokeWidth="3" />
-              <path d="M17 8L-1.78814e-07 8" stroke="black" strokeWidth="3" />
+              <rect x="28" width="8" height="64" fill="#2C2C2C" />
+              <rect
+                x="64"
+                y="28"
+                width="8"
+                height="64"
+                transform="rotate(90 64 28)"
+                fill="#2C2C2C"
+              />
             </svg>
+
             <span className="triangle"></span>
             {dropdown ? <Dropdown /> : ""}
           </li>

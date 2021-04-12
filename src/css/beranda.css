@@ -18,10 +18,19 @@ a {
   text-decoration: none;
 }
 
+.beranda-container {
+  position: relative;
+}
+
 .beranda-container .header-section {
   display: flex;
   align-items: center;
   flex: 0 0 0;
+}
+
+.beranda-container .header-section .title-select-cont {
+  display: flex;
+  align-items: center;
 }
 
 .beranda-container .header-section .title {
@@ -63,6 +72,7 @@ a {
   width: 100%;
   left: 0;
   border: 1px solid var(--secondary-clr);
+  background-color: var(--primary-clr);
   margin-top: 1rem;
   border-radius: 5px;
   z-index: 98;
@@ -167,7 +177,6 @@ a {
 .beranda-container .list-section {
   margin-top: 5rem;
   overflow-y: auto;
-  max-height: 400px;
   position: relative;
 }
 
@@ -194,24 +203,49 @@ a {
   padding: 1rem 1rem 1rem 0;
 }
 
+.beranda-container .list-section .table-container td span {
+  display: block;
+  display: none;
+}
+
 .beranda-container .list-section .table-container td img {
   height: 80px;
   width: 80px;
   border-radius: 20px;
 }
 
-.beranda-container .option-section {
-  display: flex;
-  margin-top: 2rem;
-  justify-content: flex-end;
-}
-
-.beranda-container .option-section .btn {
-  background: var(--secondary-clr);
-  color: var(--primary-clr);
-  border: none;
-  font-size: 1.4rem;
-  border-radius: 5px;
-  padding: 1rem 2rem;
-  cursor: pointer;
+@media only screen and (max-width: 600px) {
+  .beranda-container .header-section {
+    flex-direction: column;
+    justify-content: space-between;
+    width: 100%;
+  }
+  .beranda-container .header-section .title-select-cont {
+    width: 100%;
+    justify-content: space-between;
+  }
+  .beranda-container .header-section .title-select-cont .select-milik {
+    margin: 0;
+  }
+  .beranda-container .header-section .title {
+    font-size: 2.4rem;
+    margin: 0;
+  }
+  .beranda-container .header-section .search-input {
+    width: 100%;
+    margin-top: 2rem;
+  }
+  .beranda-container .select-status {
+    margin: 0;
+  }
+  .beranda-container .list-section .table-container .table-head {
+    display: none;
+  }
+  .beranda-container .list-section .table-container td span {
+    display: block;
+    color: #bababa;
+  }
+  .beranda-container .list-section .table-container td:not(.item-name):not(.item-img) {
+    display: none;
+  }
 }

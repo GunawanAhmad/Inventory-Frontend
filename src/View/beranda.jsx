@@ -102,20 +102,22 @@ function Login() {
   return (
     <div className="beranda-container">
       <section className="header-section">
-        <h1 className="title">Inventory</h1>
-        <div
-          className="select-milik hide"
-          onClick={toggleMilikDropdown}
-          ref={selectMilik}
-        >
-          <span>Milik : </span>
-          <span>&nbsp; {milik}</span>
-          <span className="triangle"></span>
+        <div className="title-select-cont">
+          <h1 className="title">Inventory</h1>
+          <div
+            className="select-milik hide"
+            onClick={toggleMilikDropdown}
+            ref={selectMilik}
+          >
+            <span>Milik : </span>
+            <span>&nbsp; {milik}</span>
+            <span className="triangle"></span>
 
-          <ul className="list hide">
-            <li onClick={() => changeMilikList("Internal")}>Internal</li>
-            <li onClick={() => changeMilikList("Eksternal")}>Eksternal</li>
-          </ul>
+            <ul className="list hide">
+              <li onClick={() => changeMilikList("Internal")}>Internal</li>
+              <li onClick={() => changeMilikList("Eksternal")}>Eksternal</li>
+            </ul>
+          </div>
         </div>
         <div className="search-input">
           <svg
@@ -168,10 +170,15 @@ function Login() {
             )
             .map((filteredList) => (
               <tr className="item">
-                <td>
+                <td className="item-img">
                   <img src={img} alt="img" />
                 </td>
-                <td className="item-name">{filteredList.nama}</td>
+                <td className="item-name">
+                  {filteredList.nama}{" "}
+                  <span>
+                    {filteredList.jumlah} {filteredList.satuan}
+                  </span>
+                </td>
                 <td>{filteredList.kondisi}</td>
                 <td>{filteredList.lokasi}</td>
                 <td>{filteredList.status}</td>
@@ -182,9 +189,6 @@ function Login() {
               </tr>
             ))}
         </table>
-      </section>
-      <section className="option-section">
-        <button className="btn">Download as CSV</button>
       </section>
     </div>
   );
