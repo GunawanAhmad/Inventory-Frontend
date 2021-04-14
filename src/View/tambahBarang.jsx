@@ -1,6 +1,7 @@
 import React from "react";
 import "../css/tambahBarang.css";
 import axios from "axios";
+import Modal from "../components/errorMsg.jsx";
 
 function TamnbahBarang(props) {
   const [kondisiBarang, setKondisiBarang] = React.useState("Baik");
@@ -11,6 +12,8 @@ function TamnbahBarang(props) {
   const [milik, setMilik] = React.useState("Internal");
   const [satuanBarang, setSatuanBarang] = React.useState("Pcs");
   const [photo, setPhoto] = React.useState(null);
+  const [errorMsg, setErrorMSg] = React.useState("Error");
+  const [showModalBox, setShowModalBox] = React.useState(false);
 
   function uploadBarang() {
     let formData = new FormData();
@@ -22,7 +25,6 @@ function TamnbahBarang(props) {
     formData.append("photo", photo);
     formData.append("nama_pemilik", namaPemilik);
     formData.append("milik", milik);
-    console.log(formData.get("nama"));
 
     axios
       .post("/tambah-barang", formData)
@@ -31,8 +33,14 @@ function TamnbahBarang(props) {
         props.history.push("/");
       })
       .catch((err) => {
-        console.log(err);
+        console.log(err.response);
+        setErrorMSg(err.response.data.message);
+        toggleModalBox();
       });
+  }
+
+  function toggleModalBox() {
+    setShowModalBox(!showModalBox);
   }
 
   function openListInput(inputElm, check) {
@@ -92,6 +100,7 @@ function TamnbahBarang(props) {
 
   return (
     <div className="container-tambah-barang">
+      {showModalBox && <Modal msg={errorMsg} onToggle={toggleModalBox}></Modal>}
       <form action="" className="form">
         <h3 className="title">Tambah barang</h3>
         <div className="form_div">
@@ -219,7 +228,7 @@ function TamnbahBarang(props) {
               {photo ? photo.name : "Choose file"}
             </label>
             <div className="icon">
-              <i class="fa fa-file"></i>
+              <i className="fa fa-file"></i>
             </div>
             <input id="file-upload" type="file" onChange={getFilePhoto} />
           </div>
