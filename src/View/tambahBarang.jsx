@@ -1,12 +1,39 @@
 import React from "react";
 import "../css/tambahBarang.css";
+import axios from "axios";
 
-function TamnbahBarang() {
+function TamnbahBarang(props) {
   const [kondisiBarang, setKondisiBarang] = React.useState("Baik");
+  const [namaBarang, setNamaBarang] = React.useState("");
+  const [jumlah, setJumlah] = React.useState(0);
+  const [lokasi, setLokasi] = React.useState("");
+  const [namaPemilik, setNamaPemilik] = React.useState("");
   const [milik, setMilik] = React.useState("Internal");
   const [satuanBarang, setSatuanBarang] = React.useState("Pcs");
   const [photo, setPhoto] = React.useState(null);
-  const [bukti, setBukti] = React.useState(null);
+
+  function uploadBarang() {
+    let formData = new FormData();
+    formData.append("nama", namaBarang);
+    formData.append("kondisi", kondisiBarang);
+    formData.append("lokasi", lokasi);
+    formData.append("jumlah", jumlah);
+    formData.append("satuan", satuanBarang);
+    formData.append("photo", photo);
+    formData.append("nama_pemilik", namaPemilik);
+    formData.append("milik", milik);
+    console.log(formData.get("nama"));
+
+    axios
+      .post("/tambah-barang", formData)
+      .then((response) => {
+        console.log(response);
+        props.history.push("/");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
 
   function openListInput(inputElm, check) {
     let container;
@@ -62,9 +89,6 @@ function TamnbahBarang() {
   function getFilePhoto(e) {
     setPhoto(e.target.files[0]);
   }
-  function getFileBukti(e) {
-    setBukti(e.target.files[0]);
-  }
 
   return (
     <div className="container-tambah-barang">
@@ -80,6 +104,7 @@ function TamnbahBarang() {
             id="namaBarang"
             required
             className="input"
+            onChange={(e) => setNamaBarang(e.target.value)}
           />
         </div>
         <div className="form_div">
@@ -121,6 +146,7 @@ function TamnbahBarang() {
             id="lokasiBarang"
             required
             className="input"
+            onChange={(e) => setLokasi(e.target.value)}
           />
         </div>
         <div className="form_div">
@@ -137,7 +163,6 @@ function TamnbahBarang() {
               value={milik}
               required
             />
-
             <div className="triangle"></div>
           </div>
 
@@ -162,6 +187,7 @@ function TamnbahBarang() {
               id="jumlahBarang"
               required
               className="input"
+              onChange={(e) => setJumlah(e.target.value)}
             />
 
             <div className="input">
@@ -211,38 +237,15 @@ function TamnbahBarang() {
                 id="namaBarang"
                 required
                 className="input"
+                onChange={(e) => setNamaPemilik(e.target.value)}
               />
-            </div>
-            <div className="form_div">
-              <label htmlFor="namaBarang" className="label">
-                Tanggal
-              </label>
-              <input
-                type="date"
-                name="namaBarang"
-                id="namaBarang"
-                required
-                className="input"
-              />
-            </div>
-            <div className="form_div">
-              <label htmlFor="lokasiBarang" className="label">
-                Bukti peminjaman
-              </label>
-              <div className="input photo-input">
-                <label for="bukti-upload" className="custom-file-upload">
-                  {bukti ? bukti.name : "Choose file"}
-                </label>
-                <div className="icon">
-                  <i class="fa fa-file"></i>
-                </div>
-                <input id="bukti-upload" type="file" onChange={getFileBukti} />
-              </div>
             </div>
           </div>
         )}
 
-        <button className="btn">SUBMIT</button>
+        <button className="btn" type="button" onClick={uploadBarang}>
+          SUBMIT
+        </button>
       </form>
     </div>
   );

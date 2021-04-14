@@ -155,39 +155,43 @@ function Login() {
       </section>
       <section className="list-section">
         <table className="table-container">
-          <tr className="table-head">
-            <th></th>
-            <th>Nama barang</th>
-            <th>Kondisi</th>
-            <th>Lokasi</th>
-            <th>Status</th>
-            <th>Tanggal masuk</th>
-            <th>Jumlah</th>
-          </tr>
-          {listBarang
-            .filter((barang) =>
-              status == "Semua" ? barang.status != "" : barang.status == status
-            )
-            .map((filteredList) => (
-              <tr className="item">
-                <td className="item-img">
-                  <img src={img} alt="img" />
-                </td>
-                <td className="item-name">
-                  {filteredList.nama}{" "}
-                  <span>
+          <tbody>
+            <tr className="table-head">
+              <th></th>
+              <th>Nama barang</th>
+              <th>Kondisi</th>
+              <th>Lokasi</th>
+              <th>Status</th>
+              <th>Tanggal masuk</th>
+              <th>Jumlah</th>
+            </tr>
+            {listBarang
+              .filter((barang) =>
+                status == "Semua"
+                  ? barang.status != ""
+                  : barang.status == status
+              )
+              .map((filteredList, index) => (
+                <tr className="item" key={index}>
+                  <td className="item-img">
+                    <img src={img} alt="img" />
+                  </td>
+                  <td className="item-name">
+                    {filteredList.nama}{" "}
+                    <span>
+                      {filteredList.jumlah} {filteredList.satuan}
+                    </span>
+                  </td>
+                  <td>{filteredList.kondisi}</td>
+                  <td>{filteredList.lokasi}</td>
+                  <td>{filteredList.status}</td>
+                  <td> {filteredList.tanggalMasuk}</td>
+                  <td>
                     {filteredList.jumlah} {filteredList.satuan}
-                  </span>
-                </td>
-                <td>{filteredList.kondisi}</td>
-                <td>{filteredList.lokasi}</td>
-                <td>{filteredList.status}</td>
-                <td> {filteredList.tanggalMasuk}</td>
-                <td>
-                  {filteredList.jumlah} {filteredList.satuan}
-                </td>
-              </tr>
-            ))}
+                  </td>
+                </tr>
+              ))}
+          </tbody>
         </table>
       </section>
     </div>
