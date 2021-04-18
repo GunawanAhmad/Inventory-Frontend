@@ -1,60 +1,45 @@
 import React from "react";
 import "../css/beranda.css";
-import img from "../test.jpg";
+import img from "../default.jpg";
+import axios from "axios";
 
 function Login() {
   const [milik, setMilik] = React.useState("Internal");
   const [status, setStatus] = React.useState("Semua");
+  const [listBarang, setListBarang] = React.useState([]);
   const selectMilik = React.createRef();
   const selectStatus = React.createRef();
 
-  const listBarang = [
-    {
-      nama: "kursi",
-      kondisi: "Baik",
-      lokasi: "Gudang",
-      status: "Ada",
-      tanggalMasuk: "11/12/2020",
-      jumlah: 1,
-      satuan: "Buah",
-    },
-    {
-      nama: "kursi Duduk",
-      kondisi: "Baik",
-      lokasi: "Gudang",
-      status: "Ada",
-      tanggalMasuk: "11/12/2020",
-      jumlah: 1,
-      satuan: "Buah",
-    },
-    {
-      nama: "Meja",
-      kondisi: "Baik",
-      lokasi: "Gudang",
-      status: "Rusak",
-      tanggalMasuk: "11/12/2020",
-      jumlah: 1,
-      satuan: "Buah",
-    },
-    {
-      nama: "Lemari",
-      kondisi: "Baik",
-      lokasi: "Gudang",
-      status: "Hilang",
-      tanggalMasuk: "11/12/2020",
-      jumlah: 1,
-      satuan: "Buah",
-    },
-    {
-      nama: "Lemari",
-      kondisi: "Baik",
-      lokasi: "Gudang",
-      status: "Hilang",
-      tanggalMasuk: "11/12/2020",
-      jumlah: 1,
-      satuan: "Buah",
-    },
-  ];
+  React.useEffect(() => {
+    // Update the document title using the browser API
+    if (milik.toLowerCase() == "eksternal") {
+      getBarangEksternal();
+    } else if (milik.toLowerCase() == "internal") {
+      getBarangInternal();
+    }
+  }, []);
+
+  function getBarangInternal() {
+    axios
+      .get("/list-barang-internal")
+      .then((response) => {
+        setListBarang(response.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
+  function getBarangEksternal() {
+    axios
+      .get("/list-barang-eksternal")
+      .then((response) => {
+        setListBarang(response.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
 
   function toggleMilikDropdown(e) {
     if (e.target.classList.contains("select-milik")) {
@@ -70,6 +55,11 @@ function Login() {
 
   function changeMilikList(val) {
     setMilik(val);
+    if (val.toLowerCase() == "eksternal") {
+      getBarangEksternal();
+    } else if (val.toLowerCase() == "internal") {
+      getBarangInternal();
+    }
     selectMilik.current.classList.toggle("hide");
   }
 
@@ -97,6 +87,10 @@ function Login() {
         items[i].style.display = "none";
       }
     }
+  }
+
+  function setErrorPhoto(e) {
+    e.target.src = img;
   }
 
   return (
@@ -162,19 +156,23 @@ function Login() {
               <th>Kondisi</th>
               <th>Lokasi</th>
               <th>Status</th>
-              <th>Tanggal masuk</th>
+              {milik.toLowerCase() == "internal" && <th>Tanggal masuk</th>}
+              {milik.toLowerCase() == "eksternal" && <th>Tanggal dipinjam</th>}
               <th>Jumlah</th>
             </tr>
             {listBarang
               .filter((barang) =>
                 status == "Semua"
                   ? barang.status != ""
-                  : barang.status == status
+                  : barang.status.toLowerCase() == status.toLowerCase()
               )
               .map((filteredList, index) => (
-                <tr className="item" key={index}>
+                <tr className="item" key={filteredList._id}>
                   <td className="item-img">
-                    <img src={img} alt="img" />
+                    <img
+                      src={"http://localhost:5000/" + filteredList.photo}
+                      onError={setErrorPhoto}
+                    />
                   </td>
                   <td className="item-name">
                     {filteredList.nama}{" "}
@@ -185,7 +183,12 @@ function Login() {
                   <td>{filteredList.kondisi}</td>
                   <td>{filteredList.lokasi}</td>
                   <td>{filteredList.status}</td>
-                  <td> {filteredList.tanggalMasuk}</td>
+                  {milik.toLowerCase() == "internal" && (
+                    <td> {filteredList.tanggal_masuk.split("T")[0]}</td>
+                  )}
+                  {milik.toLowerCase() == "eksternal" && (
+                    <td> {filteredList.tanggal_dipinjam.split("T")[0]}</td>
+                  )}
                   <td>
                     {filteredList.jumlah} {filteredList.satuan}
                   </td>

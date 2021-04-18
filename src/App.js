@@ -1,3 +1,4 @@
+import React from "react";
 import Login from "./View/login";
 import BarangDetail from "./View/barangDetail";
 import Beranda from "./View/beranda";
