@@ -1,49 +1,100 @@
 import React from "react";
-import img from "../test.jpg";
+import img from "../default.jpg";
 import "../css/barangDetail.css";
+import axios from "axios";
+import Modal from "../components/errorMsg.jsx";
 
-function Login() {
+function BarangDetail(props) {
   const [barang, setBarang] = React.useState({
-    Nama: "Kursi",
-    Lokasi: "Gudang",
-    Kondisi: "Baik",
-    Status: "Ada",
-    Milik: "Internal",
-    foto: img,
-    bukti: "mantap",
+    nama: "",
+    lokasi: "",
+    status: "",
+    kondisi: "",
+    photo: "",
+    tanggal_masuk: "",
+    nama_peminjam: "",
+    tanggal_dipinjam: "",
+    jumlah: "",
+    satuan: "",
+    milik: "",
   });
-  const barangMap = [];
-  let foto;
-  let bukti;
-  if (barang.foto) {
-    foto = barang.foto;
-  }
-  if (barang.bukti) {
-    bukti = barang.bukti;
-  }
 
-  Object.entries(barang).map((item) => {
-    if (item[0] != "foto" && item[0] != "bukti") {
-      barangMap.push(item);
-    }
-  });
+  const [errorMsg, setErrorMSg] = React.useState("Error");
+  const [showModalBox, setShowModalBox] = React.useState(false);
+
+  React.useEffect(() => {
+    // Update the document title using the browser API
+    axios
+      .get(props.location.pathname + props.location.search)
+      .then((result) => {
+        console.log(result);
+        setBarang(result.data);
+      })
+      .catch((err) => {
+        console.log(err);
+        setErrorMSg(err.response.data.message);
+        toggleModalBox();
+      });
+  }, []);
+
+  function setErrorPhoto(e) {
+    e.target.src = img;
+  }
+  function toggleModalBox() {
+    setShowModalBox(!showModalBox);
+  }
 
   return (
-    <div className="container">
-      <img src={img} alt="" className="img" />
-      {barangMap.map((item, index) => (
-        <div className="section" key={index}>
-          <p className="label">{item[0]}</p>
-          <p className="content">{item[1]}</p>
-        </div>
-      ))}
-      {/* gunakan foto bukti disni */}
-      {barang.bukti && (
-        <div className="section">
-          <p className="label">Bukti</p>
-          <p className="content">oWo</p>
-        </div>
+    <div className="container-detail">
+      {showModalBox && <Modal msg={errorMsg} onToggle={toggleModalBox}></Modal>}
+      <img
+        src={"http://localhost:5000/" + barang.photo}
+        alt=""
+        className="img"
+        onError={setErrorPhoto}
+      />
+
+      <div className="section">
+        <p className="label">Nama barang</p>
+        <p className="content">{barang.nama}</p>
+      </div>
+      <div className="section">
+        <p className="label">Status</p>
+        <p className="content">{barang.status}</p>
+      </div>
+      <div className="section">
+        <p className="label">Lokasi</p>
+        <p className="content">{barang.lokasi}</p>
+      </div>
+      <div className="section">
+        <p className="label">Kondisi</p>
+        <p className="content">{barang.kondisi}</p>
+      </div>
+      <div className="section">
+        <p className="label">Tanggal masuk</p>
+        <p className="content">{barang.tanggal_masuk.split("T")[0]}</p>
+      </div>
+      <div className="section">
+        <p className="label">Jumlah</p>
+        <p className="content">{barang.jumlah + " " + barang.satuan}</p>
+      </div>
+      <div className="section">
+        <p className="label">Milik</p>
+        <p className="content">{barang.milik}</p>
+      </div>
+      {barang.status.toLowerCase() == "dipinjam" && (
+        <>
+          <div className="section">
+            <p className="label">Nama / organisasi peminjam</p>
+            <p className="content">{barang.nama_peminjam}</p>
+          </div>
+          <div className="section">
+            <p className="label">Tanggal dipiinjam</p>
+            <p className="content">{barang.dipinjam}</p>
+          </div>
+        </>
       )}
+
       <div className="section btns">
         <button className="btn">Edit</button>
         <button className="btn">Hapus</button>
@@ -52,4 +103,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default BarangDetail;

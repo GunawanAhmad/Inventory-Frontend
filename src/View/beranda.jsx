@@ -3,7 +3,7 @@ import "../css/beranda.css";
 import img from "../default.jpg";
 import axios from "axios";
 
-function Login() {
+function Beranda(props) {
   const [milik, setMilik] = React.useState("Internal");
   const [status, setStatus] = React.useState("Semua");
   const [listBarang, setListBarang] = React.useState([]);
@@ -93,6 +93,10 @@ function Login() {
     e.target.src = img;
   }
 
+  function getBarangDetail(barangId) {
+    props.history.push("/barang?barangId=" + barangId + "&milik=" + milik);
+  }
+
   return (
     <div className="beranda-container">
       <section className="header-section">
@@ -166,8 +170,12 @@ function Login() {
                   ? barang.status != ""
                   : barang.status.toLowerCase() == status.toLowerCase()
               )
-              .map((filteredList, index) => (
-                <tr className="item" key={filteredList._id}>
+              .map((filteredList) => (
+                <tr
+                  className="item"
+                  key={filteredList._id}
+                  onClick={() => getBarangDetail(filteredList._id)}
+                >
                   <td className="item-img">
                     <img
                       src={"http://localhost:5000/" + filteredList.photo}
@@ -201,4 +209,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default Beranda;

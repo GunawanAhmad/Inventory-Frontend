@@ -7,10 +7,10 @@ function Dropdown() {
       <Link to="/tambah-barang">
         <li>Tambah barang</li>
       </Link>
-      <Link>
+      <Link to="#">
         <li>Download as CSV</li>
       </Link>
-      <Link>
+      <Link to="#">
         <li>Logout</li>
       </Link>
     </ul>

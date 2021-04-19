@@ -3,13 +3,13 @@
   --secondary-clr: #2c2c2c;
 }
 
-.container {
+.container-detail {
   min-width: 300px;
   max-width: 500px;
   margin: auto;
 }
 
-.container .img {
+.container-detail .img {
   max-width: 400px;
   width: 100%;
   height: auto;
@@ -18,25 +18,27 @@
   margin-bottom: 5rem;
 }
 
-.container .section {
+.container-detail .section {
   margin-bottom: 2rem;
 }
 
-.container .section .label {
+.container-detail .section .label {
   font-size: 1.6rem;
   color: #c4c4c4;
+  text-transform: capitalize;
 }
 
-.container .section .content {
+.container-detail .section .content {
   font-size: 1.8rem;
   font-weight: 600;
 }
 
-.container .section.btns {
+.container-detail .section.btns {
   display: flex;
 }
 
-.container .section.btns .btn {
+.container-detail .section.btns .btn {
+  cursor: pointer;
   background: var(--secondary-clr);
   color: var(--primary-clr);
   width: 50%;

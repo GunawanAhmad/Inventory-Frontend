@@ -3,7 +3,7 @@
   --secondary-clr: #2c2c2c;
 }
 
-.container {
+.container-detail {
   min-width: 300px;
   max-width: 500px;
   margin: auto;
@@ -23,6 +23,7 @@
     .label {
       font-size: 1.6rem;
       color: #c4c4c4;
+      text-transform: capitalize;
     }
 
     .content {
@@ -35,6 +36,7 @@
       //   justify-content: space-between;
 
       .btn {
+        cursor: pointer;
         background: var(--secondary-clr);
         color: var(--primary-clr);
         width: 50%;
