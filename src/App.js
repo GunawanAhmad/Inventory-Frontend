@@ -17,9 +17,9 @@ function App() {
           <Switch>
             <Route exact path="/" component={Beranda} />
             <Route path="/tambah-barang" component={TambahBarang} />
-            <Route path="/edit-barang" component={EditBarang} />
+            <Route path="/edit-barang/:query" component={EditBarang} />
             <Route path="/login" component={Login} />
-            <Route path="/:id" component={BarangDetail} />
+            <Route path="/:query" component={BarangDetail} />
           </Switch>
         </Router>
       </div>

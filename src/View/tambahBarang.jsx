@@ -97,6 +97,9 @@ function TamnbahBarang(props) {
   function getFilePhoto(e) {
     setPhoto(e.target.files[0]);
   }
+  function focusInput(e) {
+    e.target.childNodes[0].focus();
+  }
 
   return (
     <div className="container-tambah-barang">
@@ -120,16 +123,16 @@ function TamnbahBarang(props) {
           <label htmlFor="kondisiBarang" className="label">
             Kondisi barang
           </label>
-          <div className="input">
+          <div className="input hidden-input" onClick={focusInput}>
             <input
               type="text"
               name="kondisiBarang"
               id="kondisiBarang"
               onFocus={openListInput}
               onBlur={closeListInput}
-              value={kondisiBarang}
               required
             />
+            <span>{kondisiBarang}</span>
 
             <div className="triangle"></div>
           </div>
@@ -162,16 +165,16 @@ function TamnbahBarang(props) {
           <label htmlFor="milikBarang" className="label">
             Milik
           </label>
-          <div className="input">
+          <div className="input hidden-input" onClick={focusInput}>
             <input
               type="text"
               name="milikBarang"
               id="milikBarang"
               onFocus={openListInput}
               onBlur={closeListInput}
-              value={milik}
               required
             />
+            <span>{milik}</span>
             <div className="triangle"></div>
           </div>
 
@@ -199,14 +202,14 @@ function TamnbahBarang(props) {
               onChange={(e) => setJumlah(e.target.value)}
             />
 
-            <div className="input">
+            <div className="input hidden-input" onClick={focusInput}>
               <input
                 type="text"
-                value={satuanBarang}
                 onFocus={(e) => openListInput(e, true)}
                 onBlur={(e) => closeListInput(e, true)}
               />
               <div className="triangle"></div>
+              <span>{satuanBarang}</span>
             </div>
           </div>
 
@@ -224,7 +227,7 @@ function TamnbahBarang(props) {
             Foto
           </label>
           <div className="input photo-input">
-            <label for="file-upload" className="custom-file-upload">
+            <label htmlFor="file-upload" className="custom-file-upload">
               {photo ? photo.name : "Choose file"}
             </label>
             <div className="icon">

@@ -47,6 +47,19 @@
         position: relative;
         overflow: hidden;
         font-size: 1.8rem;
+        display: flex;
+        align-items: center;
+
+        &.hidden-input {
+          input {
+            height: 0;
+            width: 0;
+            opacity: 0;
+          }
+          span {
+            pointer-events: none;
+          }
+        }
 
         &.photo-input {
           display: flex;

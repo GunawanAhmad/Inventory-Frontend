@@ -1,12 +1,49 @@
 import React from "react";
 import "../css/tambahBarang.css";
+import Modal from "../components/errorMsg.jsx";
+import axios from "axios";
 
-function TamnbahBarang() {
+function EditBarang() {
+  const [barang, setBarang] = React.useState({
+    nama: "",
+    lokasi: "",
+    status: "",
+    kondisi: "",
+    photo: "",
+    tanggal_masuk: "",
+    nama_peminjam: "",
+    tanggal_dipinjam: "",
+    jumlah: "",
+    satuan: "",
+    milik: "",
+    _id: "",
+  });
   const [kondisiBarang, setKondisiBarang] = React.useState("Baik");
+  const [namaBarang, setNamaBarang] = React.useState("");
+  const [jumlah, setJumlah] = React.useState(0);
+  const [lokasi, setLokasi] = React.useState("");
+  const [status, setStatus] = React.useState("Ada");
+  const [namaPemilik, setNamaPemilik] = React.useState("");
   const [milik, setMilik] = React.useState("Internal");
   const [satuanBarang, setSatuanBarang] = React.useState("Pcs");
   const [photo, setPhoto] = React.useState(null);
-  const [bukti, setBukti] = React.useState(null);
+  const [errorMsg, setErrorMSg] = React.useState("Error");
+  const [showModalBox, setShowModalBox] = React.useState(false);
+
+  React.useEffect(() => {
+    // Update the document title using the browser API
+    // axios
+    //   .get(props.location.pathname + props.location.search)
+    //   .then((result) => {
+    //     console.log(result);
+    //     setBarang(result.data);
+    //   })
+    //   .catch((err) => {
+    //     console.log(err);
+    //     setErrorMSg(err.response.data.message);
+    //     toggleModalBox();
+    //   });
+  }, []);
 
   function openListInput(inputElm, check) {
     let container;
@@ -17,6 +54,9 @@ function TamnbahBarang() {
       container = inputElm.target.parentElement.parentElement.childNodes[2];
     }
     container.classList.remove("hide");
+  }
+  function toggleModalBox() {
+    setShowModalBox(!showModalBox);
   }
 
   function closeListInput(inputElm, check) {
@@ -53,6 +93,12 @@ function TamnbahBarang() {
     suggestionBox.classList.add("hide");
   }
 
+  function changeStatus(e) {
+    setStatus(e.target.textContent);
+    let suggestionBox = e.target.parentElement;
+    suggestionBox.classList.add("hide");
+  }
+
   function changeSatuanbarang(e) {
     setSatuanBarang(e.target.textContent);
     let suggestionBox = e.target.parentElement;
@@ -62,12 +108,14 @@ function TamnbahBarang() {
   function getFilePhoto(e) {
     setPhoto(e.target.files[0]);
   }
-  function getFileBukti(e) {
-    setBukti(e.target.files[0]);
+
+  function focusInput(e) {
+    e.target.childNodes[0].focus();
   }
 
   return (
     <div className="container-tambah-barang">
+      {showModalBox && <Modal msg={errorMsg} onToggle={toggleModalBox}></Modal>}
       <form action="" className="form">
         <h3 className="title">Edit barang</h3>
         <div className="form_div">
@@ -86,16 +134,16 @@ function TamnbahBarang() {
           <label htmlFor="kondisiBarang" className="label">
             Kondisi barang
           </label>
-          <div className="input">
+          <div className="input hidden-input" onClick={focusInput}>
             <input
               type="text"
               name="kondisiBarang"
               id="kondisiBarang"
               onFocus={openListInput}
               onBlur={closeListInput}
-              value={kondisiBarang}
               required
             />
+            <span>{kondisiBarang}</span>
 
             <div className="triangle"></div>
           </div>
@@ -106,8 +154,36 @@ function TamnbahBarang() {
             onMouseOut={suggestionBoxOutHover}
           >
             <li onClick={changeKondisiBarang}>Baik</li>
-            <li onClick={changeKondisiBarang}>Rusak</li>
-            <li onClick={changeKondisiBarang}>Hilang</li>
+            <li onClick={changeKondisiBarang}>Rusak ringan</li>
+            <li onClick={changeKondisiBarang}>Rusak parah</li>
+          </ul>
+        </div>
+        <div className="form_div">
+          <label htmlFor="kondisiBarang" className="label">
+            Status barang
+          </label>
+          <div className="input hidden-input" onClick={focusInput}>
+            <input
+              type="text"
+              name="statusBarang"
+              id="statusBarang"
+              onFocus={openListInput}
+              onBlur={closeListInput}
+              required
+            />
+            <span>{status}</span>
+
+            <div className="triangle"></div>
+          </div>
+
+          <ul
+            className="input-list hide"
+            onMouseOver={suggestionBoxHovered}
+            onMouseOut={suggestionBoxOutHover}
+          >
+            <li onClick={changeStatus}>Ada</li>
+            <li onClick={changeStatus}>Dipinjam</li>
+            <li onClick={changeStatus}>Hilang</li>
           </ul>
         </div>
 
@@ -127,16 +203,16 @@ function TamnbahBarang() {
           <label htmlFor="milikBarang" className="label">
             Milik
           </label>
-          <div className="input">
+          <div className="input hidden-input" onClick={focusInput}>
             <input
               type="text"
               name="milikBarang"
               id="milikBarang"
               onFocus={openListInput}
               onBlur={closeListInput}
-              value={milik}
               required
             />
+            <span>{milik}</span>
 
             <div className="triangle"></div>
           </div>
@@ -164,13 +240,13 @@ function TamnbahBarang() {
               className="input"
             />
 
-            <div className="input">
+            <div className="input hidden-input" onClick={focusInput}>
               <input
                 type="text"
-                value={satuanBarang}
                 onFocus={(e) => openListInput(e, true)}
                 onBlur={(e) => closeListInput(e, true)}
               />
+              <span>{satuanBarang}</span>
               <div className="triangle"></div>
             </div>
           </div>
@@ -189,55 +265,29 @@ function TamnbahBarang() {
             Foto
           </label>
           <div className="input photo-input">
-            <label for="file-upload" className="custom-file-upload">
+            <label htmlFor="file-upload" className="custom-file-upload">
               {photo ? photo.name : "Choose file"}
             </label>
             <div className="icon">
-              <i class="fa fa-file"></i>
+              <i className="fa fa-file"></i>
             </div>
             <input id="file-upload" type="file" onChange={getFilePhoto} />
           </div>
         </div>
 
-        {milik == "Eksternal" && (
+        {status.toLowerCase() == "dipinjam" && (
           <div className="exsternal_option">
             <div className="form_div">
               <label htmlFor="namaBarang" className="label">
-                Nama / organisasi pemilik
+                Nama / organisasi peminjam
               </label>
               <input
                 type="text"
-                name="namaBarang"
-                id="namaBarang"
+                name="namaPeminjam"
+                id="namaPeminjam"
                 required
                 className="input"
               />
-            </div>
-            <div className="form_div">
-              <label htmlFor="namaBarang" className="label">
-                Tanggal
-              </label>
-              <input
-                type="date"
-                name="namaBarang"
-                id="namaBarang"
-                required
-                className="input"
-              />
-            </div>
-            <div className="form_div">
-              <label htmlFor="lokasiBarang" className="label">
-                Bukti peminjaman
-              </label>
-              <div className="input photo-input">
-                <label for="bukti-upload" className="custom-file-upload">
-                  {bukti ? bukti.name : "Choose file"}
-                </label>
-                <div className="icon">
-                  <i class="fa fa-file"></i>
-                </div>
-                <input id="bukti-upload" type="file" onChange={getFileBukti} />
-              </div>
             </div>
           </div>
         )}
@@ -248,4 +298,4 @@ function TamnbahBarang() {
   );
 }
 
-export default TamnbahBarang;
+export default EditBarang;

@@ -20,6 +20,13 @@
         font-size: 1.8rem;
         font-weight: 600;
         color: var(--secondary-clr);
+        input {
+          opacity: 0;
+          position: absolute;
+          width: 100%;
+          height: 100%;
+          cursor: pointer;
+        }
 
         &.dropdown {
           display: flex;
@@ -31,6 +38,7 @@
 
           svg {
             transition: transform 250ms ease;
+            pointer-events: none;
 
             &.rotate {
               transform: rotateZ(45deg);
@@ -43,6 +51,7 @@
             right: -120%;
             transform: translateY(-50%);
             margin-top: 2rem;
+            pointer-events: none;
           }
 
           ul {

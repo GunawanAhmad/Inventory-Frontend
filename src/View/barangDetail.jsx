@@ -17,6 +17,7 @@ function BarangDetail(props) {
     jumlah: "",
     satuan: "",
     milik: "",
+    _id: "",
   });
 
   const [errorMsg, setErrorMSg] = React.useState("Error");
@@ -36,6 +37,12 @@ function BarangDetail(props) {
         toggleModalBox();
       });
   }, []);
+
+  function editBarang() {
+    props.history.push(
+      "edit-barang/barang?barangId=" + barang._id + "&milik=" + barang.milik
+    );
+  }
 
   function setErrorPhoto(e) {
     e.target.src = img;
@@ -96,7 +103,9 @@ function BarangDetail(props) {
       )}
 
       <div className="section btns">
-        <button className="btn">Edit</button>
+        <button className="btn" onClick={editBarang}>
+          Edit
+        </button>
         <button className="btn">Hapus</button>
       </div>
     </div>

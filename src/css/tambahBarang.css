@@ -65,6 +65,18 @@ a {
   position: relative;
   overflow: hidden;
   font-size: 1.8rem;
+  display: flex;
+  align-items: center;
+}
+
+.container-tambah-barang .form .form_div .input.hidden-input input {
+  height: 0;
+  width: 0;
+  opacity: 0;
+}
+
+.container-tambah-barang .form .form_div .input.hidden-input span {
+  pointer-events: none;
 }
 
 .container-tambah-barang .form .form_div .input.photo-input {
