@@ -38,6 +38,26 @@ function BarangDetail(props) {
       });
   }, []);
 
+  function deleteBarang() {
+    console.log(barang._id, barang.milik);
+    let body = {
+      barangId: barang._id,
+      milik: barang.milik,
+    };
+    axios
+      .delete("/hapus-barang", {
+        data: body,
+      })
+      .then((result) => {
+        console.log(result);
+        props.history.push("/");
+      })
+      .catch((err) => {
+        setErrorMSg(err.response.data.message);
+        toggleModalBox();
+      });
+  }
+
   function editBarang() {
     props.history.push(
       "edit-barang/barang?barangId=" + barang._id + "&milik=" + barang.milik
@@ -106,7 +126,9 @@ function BarangDetail(props) {
         <button className="btn" onClick={editBarang}>
           Edit
         </button>
-        <button className="btn">Hapus</button>
+        <button className="btn" onClick={deleteBarang}>
+          Hapus
+        </button>
       </div>
     </div>
   );
