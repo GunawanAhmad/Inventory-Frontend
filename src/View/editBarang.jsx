@@ -3,47 +3,68 @@ import "../css/tambahBarang.css";
 import Modal from "../components/errorMsg.jsx";
 import axios from "axios";
 
-function EditBarang() {
-  const [barang, setBarang] = React.useState({
-    nama: "",
-    lokasi: "",
-    status: "",
-    kondisi: "",
-    photo: "",
-    tanggal_masuk: "",
-    nama_peminjam: "",
-    tanggal_dipinjam: "",
-    jumlah: "",
-    satuan: "",
-    milik: "",
-    _id: "",
-  });
+function EditBarang(props) {
   const [kondisiBarang, setKondisiBarang] = React.useState("Baik");
   const [namaBarang, setNamaBarang] = React.useState("");
   const [jumlah, setJumlah] = React.useState(0);
   const [lokasi, setLokasi] = React.useState("");
   const [status, setStatus] = React.useState("Ada");
-  const [namaPemilik, setNamaPemilik] = React.useState("");
+  const [namaPeminjam, setNamaPeminjam] = React.useState("");
   const [milik, setMilik] = React.useState("Internal");
   const [satuanBarang, setSatuanBarang] = React.useState("Pcs");
   const [photo, setPhoto] = React.useState(null);
   const [errorMsg, setErrorMSg] = React.useState("Error");
   const [showModalBox, setShowModalBox] = React.useState(false);
+  const [barangId, setBarangId] = React.useState("");
 
   React.useEffect(() => {
     // Update the document title using the browser API
-    // axios
-    //   .get(props.location.pathname + props.location.search)
-    //   .then((result) => {
-    //     console.log(result);
-    //     setBarang(result.data);
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //     setErrorMSg(err.response.data.message);
-    //     toggleModalBox();
-    //   });
+
+    axios
+      .get("/barang" + props.location.search)
+      .then((res) => {
+        // setBarang(result.data);
+        setNamaBarang(res.data.nama);
+        setKondisiBarang(res.data.kondisi);
+        setStatus(res.data.status);
+        setLokasi(res.data.lokasi);
+        setSatuanBarang(res.data.satuan);
+        setJumlah(res.data.jumlah);
+        setMilik(res.data.milik);
+        setNamaPeminjam(res.data.nama_peminjam || "");
+        setBarangId(res.data._id);
+      })
+      .catch((err) => {
+        console.log(err);
+        setErrorMSg(err.response.data.message);
+        toggleModalBox();
+      });
   }, []);
+
+  function editBarang() {
+    let formData = new FormData();
+    formData.append("nama", namaBarang);
+    formData.append("kondisi", kondisiBarang);
+    formData.append("lokasi", lokasi);
+    formData.append("jumlah", jumlah);
+    formData.append("satuan", satuanBarang);
+    formData.append("photo", photo);
+    formData.append("nama_peminjam", namaPeminjam);
+    formData.append("milik", milik);
+    formData.append("barangId", barangId);
+    formData.append("status", status);
+    axios
+      .post("/edit-barang", formData)
+      .then((res) => {
+        console.log(res);
+        props.history.push("/");
+      })
+      .catch((err) => {
+        console.log(err);
+        setErrorMSg(err.response.data.message);
+        toggleModalBox();
+      });
+  }
 
   function openListInput(inputElm, check) {
     let container;
@@ -128,6 +149,9 @@ function EditBarang() {
             id="namaBarang"
             required
             className="input"
+            value
+            value={namaBarang}
+            onChange={(e) => setNamaBarang(e.target.value)}
           />
         </div>
         <div className="form_div">
@@ -142,6 +166,8 @@ function EditBarang() {
               onFocus={openListInput}
               onBlur={closeListInput}
               required
+              value={kondisiBarang}
+              onChange={(e) => setKondisiBarang(e.target.value)}
             />
             <span>{kondisiBarang}</span>
 
@@ -170,6 +196,8 @@ function EditBarang() {
               onFocus={openListInput}
               onBlur={closeListInput}
               required
+              value={status}
+              onChange={(e) => setStatus(e.target.value)}
             />
             <span>{status}</span>
 
@@ -197,34 +225,9 @@ function EditBarang() {
             id="lokasiBarang"
             required
             className="input"
+            value={lokasi}
+            onChange={(e) => setLokasi(e.target.value)}
           />
-        </div>
-        <div className="form_div">
-          <label htmlFor="milikBarang" className="label">
-            Milik
-          </label>
-          <div className="input hidden-input" onClick={focusInput}>
-            <input
-              type="text"
-              name="milikBarang"
-              id="milikBarang"
-              onFocus={openListInput}
-              onBlur={closeListInput}
-              required
-            />
-            <span>{milik}</span>
-
-            <div className="triangle"></div>
-          </div>
-
-          <ul
-            className="input-list hide"
-            onMouseOver={suggestionBoxHovered}
-            onMouseOut={suggestionBoxOutHover}
-          >
-            <li onClick={changeMilik}>Internal</li>
-            <li onClick={changeMilik}>Eksternal</li>
-          </ul>
         </div>
 
         <div className="form_div">
@@ -238,6 +241,8 @@ function EditBarang() {
               id="jumlahBarang"
               required
               className="input"
+              value={jumlah}
+              onChange={(e) => setJumlah(e.target.value)}
             />
 
             <div className="input hidden-input" onClick={focusInput}>
@@ -245,6 +250,8 @@ function EditBarang() {
                 type="text"
                 onFocus={(e) => openListInput(e, true)}
                 onBlur={(e) => closeListInput(e, true)}
+                value={satuanBarang}
+                onChange={(e) => setSatuanBarang(e.target.value)}
               />
               <span>{satuanBarang}</span>
               <div className="triangle"></div>
@@ -287,12 +294,16 @@ function EditBarang() {
                 id="namaPeminjam"
                 required
                 className="input"
+                value={namaPeminjam}
+                onChange={(e) => setNamaPeminjam(e.target.value)}
               />
             </div>
           </div>
         )}
 
-        <button className="btn">SUBMIT</button>
+        <button className="btn" type="button" onClick={editBarang}>
+          SUBMIT
+        </button>
       </form>
     </div>
   );
