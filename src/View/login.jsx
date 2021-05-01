@@ -1,40 +1,52 @@
 import React, { useState } from "react";
 import "../css/login.css";
+import Modal from "../components/errorMsg.jsx";
+import axios from "axios";
 
-function LoginPage() {
+function LoginPage(props) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [errMsg, setErrMsg] = useState("");
+  const [errorMsg, setErrorMSg] = React.useState("Error");
+  const [errStatus, setErrStatus] = React.useState(0);
+  const [showModalBox, setShowModalBox] = React.useState(false);
 
-  async function login(e) {
+  function toggleModalBox() {
+    setShowModalBox(!showModalBox);
+  }
+
+  function login(e) {
     e.preventDefault();
-
-    const requestOptions = {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
-      body: JSON.stringify({
-        username: username,
-        password: password,
-      }),
+    let body = {
+      username,
+      password,
     };
-    try {
-      const response = await fetch(
-        "http://localhost:5000/login",
-        requestOptions
-      );
-      const json = await response.json();
-      localStorage.setItem("token", json.accesToken);
-    } catch (err) {
-      const rs = err.response;
-      setErrMsg({ errMsg: rs.message });
-    }
+    axios
+      .post("/login", body)
+      .then((res) => {
+        console.log(res);
+        localStorage.setItem("token", res.data.accesToken);
+        props.history.push("/");
+      })
+      .catch((err) => {
+        console.log(err.response);
+        if (err.response.status == 401) {
+          setErrStatus(401);
+        }
+        setErrorMSg(err.response.data.message);
+        toggleModalBox();
+      });
   }
 
   return (
     <div className="container-login-page">
+      {showModalBox && (
+        <Modal
+          msg={errorMsg}
+          errStatus={errStatus}
+          onToggle={toggleModalBox}
+          history={props.history}
+        ></Modal>
+      )}
       <form action="" className="form" onSubmit={login}>
         <h3 className="title">LOGIN</h3>
         <div className="form_div">

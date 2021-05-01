@@ -3,7 +3,7 @@ import "../css/tambahBarang.css";
 import axios from "axios";
 import Modal from "../components/errorMsg.jsx";
 
-function TamnbahBarang(props) {
+function TambahBarang(props) {
   const [kondisiBarang, setKondisiBarang] = React.useState("Baik");
   const [namaBarang, setNamaBarang] = React.useState("");
   const [jumlah, setJumlah] = React.useState(0);
@@ -13,6 +13,7 @@ function TamnbahBarang(props) {
   const [satuanBarang, setSatuanBarang] = React.useState("Pcs");
   const [photo, setPhoto] = React.useState(null);
   const [errorMsg, setErrorMSg] = React.useState("Error");
+  const [errStatus, setErrStatus] = React.useState(0);
   const [showModalBox, setShowModalBox] = React.useState(false);
 
   function uploadBarang() {
@@ -26,14 +27,19 @@ function TamnbahBarang(props) {
     formData.append("nama_pemilik", namaPemilik);
     formData.append("milik", milik);
 
+    let headers = { Authorization: "Bearer " + localStorage.getItem("token") };
+
     axios
-      .post("/tambah-barang", formData)
+      .post("/tambah-barang", formData, { headers })
       .then((response) => {
         console.log(response);
         props.history.push("/");
       })
       .catch((err) => {
         console.log(err.response);
+        if (err.response.status == 401) {
+          setErrStatus(401);
+        }
         setErrorMSg(err.response.data.message);
         toggleModalBox();
       });
@@ -103,7 +109,14 @@ function TamnbahBarang(props) {
 
   return (
     <div className="container-tambah-barang">
-      {showModalBox && <Modal msg={errorMsg} onToggle={toggleModalBox}></Modal>}
+      {showModalBox && (
+        <Modal
+          msg={errorMsg}
+          errStatus={errStatus}
+          onToggle={toggleModalBox}
+          history={props.history}
+        ></Modal>
+      )}
       <form action="" className="form">
         <h3 className="title">Tambah barang</h3>
         <div className="form_div">
@@ -263,4 +276,4 @@ function TamnbahBarang(props) {
   );
 }
 
-export default TamnbahBarang;
+export default TambahBarang;

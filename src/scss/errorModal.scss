@@ -1,7 +1,7 @@
 .container {
   position: fixed;
-  min-height: 100%;
   min-width: 100%;
+  min-height: 100%;
   top: 0;
   left: 0;
   z-index: 100;
@@ -13,8 +13,8 @@
     position: absolute;
     background-color: var(--secondary-clr);
     opacity: 0.7;
-    height: 100%;
-    width: 100%;
+    min-height: 100%;
+    min-width: 100%;
   }
 
   .modal {

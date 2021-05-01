@@ -1,9 +1,14 @@
 import React from "react";
 import "../css/errorModal.css";
 
-function errorMSg(props) {
+function ErrorMSg(props) {
   function toggleModal() {
-    props.onToggle();
+    if (props.errStatus == 401) {
+      props.onToggle();
+      props.history.push("/login");
+    } else {
+      props.onToggle();
+    }
   }
 
   return (
@@ -19,4 +24,4 @@ function errorMSg(props) {
   );
 }
 
-export default errorMSg;
+export default ErrorMSg;

@@ -2,16 +2,25 @@
 
 .container-login-page {
   // min-height: 100vh;
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  // position: relative;
+  // left: 50%;
+  // top: 50%;
+  // transform: translate(-50%, -50%);
+  // display: flex;
+  // justify-content: center;
+  // align-items: center;
+  // background-color: red;
+  // border: 1px solid red;
+  // height: auto;
+  // height: 100%;
+  // width: 100%;
 
   .form {
     width: 30rem;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
 
     .btn {
       width: 100%;
@@ -21,6 +30,7 @@
       border: none;
       font-size: 1.4rem;
       border-radius: 5px;
+      cursor: pointer;
     }
 
     .form_div {

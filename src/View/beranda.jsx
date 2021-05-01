@@ -2,6 +2,8 @@ import React from "react";
 import "../css/beranda.css";
 import img from "../default.jpg";
 import axios from "axios";
+import Modal from "../components/errorMsg.jsx";
+import { getLoginToken } from "../Helper/Helper.js";
 
 function Beranda(props) {
   const [milik, setMilik] = React.useState("Internal");
@@ -9,9 +11,16 @@ function Beranda(props) {
   const [listBarang, setListBarang] = React.useState([]);
   const selectMilik = React.createRef();
   const selectStatus = React.createRef();
+  const [errorMsg, setErrorMSg] = React.useState("Error");
+  const [errStatus, setErrStatus] = React.useState(0);
+  const [showModalBox, setShowModalBox] = React.useState(false);
 
   React.useEffect(() => {
     // Update the document title using the browser API
+    if (!getLoginToken()) {
+      props.history.push("/login");
+      return;
+    }
     if (milik.toLowerCase() == "eksternal") {
       getBarangEksternal();
     } else if (milik.toLowerCase() == "internal") {
@@ -19,25 +28,41 @@ function Beranda(props) {
     }
   }, []);
 
+  function toggleModalBox() {
+    setShowModalBox(!showModalBox);
+  }
   function getBarangInternal() {
+    let headers = { Authorization: "Bearer " + localStorage.getItem("token") };
+
     axios
-      .get("/list-barang-internal")
+      .get("/list-barang-internal", { headers: headers })
       .then((response) => {
         setListBarang(response.data);
       })
       .catch((err) => {
-        console.log(err);
+        console.log(err.response);
+        if (err.response.status == 401) {
+          setErrStatus(401);
+        }
+        setErrorMSg(err.response.data.message);
+        toggleModalBox();
       });
   }
 
   function getBarangEksternal() {
+    let headers = { Authorization: "Bearer " + localStorage.getItem("token") };
     axios
-      .get("/list-barang-eksternal")
+      .get("/list-barang-eksternal", { headers: headers })
       .then((response) => {
         setListBarang(response.data);
       })
       .catch((err) => {
-        console.log(err);
+        console.log(err.response);
+        if (err.response.status == 401) {
+          setErrStatus(401);
+        }
+        setErrorMSg(err.response.data.message);
+        toggleModalBox();
       });
   }
 
@@ -99,6 +124,14 @@ function Beranda(props) {
 
   return (
     <div className="beranda-container">
+      {showModalBox && (
+        <Modal
+          msg={errorMsg}
+          errStatus={errStatus}
+          onToggle={toggleModalBox}
+          history={props.history}
+        ></Modal>
+      )}
       <section className="header-section">
         <div className="title-select-cont">
           <h1 className="title">Inventory</h1>

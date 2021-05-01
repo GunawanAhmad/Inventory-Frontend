@@ -18,18 +18,12 @@ a {
   text-decoration: none;
 }
 
-.container-login-page {
+.container-login-page .form {
+  width: 30rem;
   position: absolute;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.container-login-page .form {
-  width: 30rem;
 }
 
 .container-login-page .form .btn {
@@ -40,6 +34,7 @@ a {
   border: none;
   font-size: 1.4rem;
   border-radius: 5px;
+  cursor: pointer;
 }
 
 .container-login-page .form .form_div {

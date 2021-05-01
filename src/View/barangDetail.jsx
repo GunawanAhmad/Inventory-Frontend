@@ -25,11 +25,16 @@ function BarangDetail(props) {
 
   React.useEffect(() => {
     // Update the document title using the browser API
+    let headers = { Authorization: "Bearer " + localStorage.getItem("token") };
+
     axios
-      .get(props.location.pathname + props.location.search)
+      .get(props.location.pathname + props.location.search, {
+        headers: headers,
+      })
       .then((result) => {
         console.log(result);
         setBarang(result.data);
+        // console.log(new Date(result.data.tanggal_masuk).toDateString());
       })
       .catch((err) => {
         console.log(err);
@@ -39,14 +44,16 @@ function BarangDetail(props) {
   }, []);
 
   function deleteBarang() {
-    console.log(barang._id, barang.milik);
     let body = {
       barangId: barang._id,
       milik: barang.milik,
     };
+    let headers = { Authorization: "Bearer " + localStorage.getItem("token") };
+
     axios
       .delete("/hapus-barang", {
         data: body,
+        headers: headers,
       })
       .then((result) => {
         console.log(result);
@@ -99,7 +106,9 @@ function BarangDetail(props) {
       </div>
       <div className="section">
         <p className="label">Tanggal masuk</p>
-        <p className="content">{barang.tanggal_masuk.split("T")[0]}</p>
+        <p className="content">
+          {new Date(barang.tanggal_masuk).toDateString()}
+        </p>
       </div>
       <div className="section">
         <p className="label">Jumlah</p>
@@ -116,8 +125,10 @@ function BarangDetail(props) {
             <p className="content">{barang.nama_peminjam}</p>
           </div>
           <div className="section">
-            <p className="label">Tanggal dipiinjam</p>
-            <p className="content">{barang.dipinjam}</p>
+            <p className="label">Tanggal dipinjam</p>
+            <p className="content">
+              {new Date(barang.tanggal_peminjaman).toDateString()}
+            </p>
           </div>
         </>
       )}

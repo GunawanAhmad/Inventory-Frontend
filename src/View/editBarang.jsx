@@ -19,9 +19,10 @@ function EditBarang(props) {
 
   React.useEffect(() => {
     // Update the document title using the browser API
+    let headers = { Authorization: "Bearer " + localStorage.getItem("token") };
 
     axios
-      .get("/barang" + props.location.search)
+      .get("/barang" + props.location.search, { headers: headers })
       .then((res) => {
         // setBarang(result.data);
         setNamaBarang(res.data.nama);
@@ -53,8 +54,10 @@ function EditBarang(props) {
     formData.append("milik", milik);
     formData.append("barangId", barangId);
     formData.append("status", status);
+    let headers = { Authorization: "Bearer " + localStorage.getItem("token") };
+
     axios
-      .post("/edit-barang", formData)
+      .post("/edit-barang", formData, { headers: headers })
       .then((res) => {
         console.log(res);
         props.history.push("/");
