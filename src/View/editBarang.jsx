@@ -2,6 +2,7 @@ import React from "react";
 import "../css/tambahBarang.css";
 import Modal from "../components/errorMsg.jsx";
 import axios from "axios";
+import LoadingSc from "../components/loadingScreen";
 
 function EditBarang(props) {
   const [kondisiBarang, setKondisiBarang] = React.useState("Baik");
@@ -16,14 +17,18 @@ function EditBarang(props) {
   const [errorMsg, setErrorMSg] = React.useState("Error");
   const [showModalBox, setShowModalBox] = React.useState(false);
   const [barangId, setBarangId] = React.useState("");
+  const [isLoading, setIsLoading] = React.useState(false);
 
   React.useEffect(() => {
     // Update the document title using the browser API
+    setIsLoading(true);
+
     let headers = { Authorization: "Bearer " + localStorage.getItem("token") };
 
     axios
       .get("/barang" + props.location.search, { headers: headers })
       .then((res) => {
+        setIsLoading(false);
         // setBarang(result.data);
         setNamaBarang(res.data.nama);
         setKondisiBarang(res.data.kondisi);
@@ -36,6 +41,7 @@ function EditBarang(props) {
         setBarangId(res.data._id);
       })
       .catch((err) => {
+        setIsLoading(false);
         console.log(err);
         setErrorMSg(err.response.data.message);
         toggleModalBox();
@@ -43,6 +49,7 @@ function EditBarang(props) {
   }, []);
 
   function editBarang() {
+    setIsLoading(true);
     let formData = new FormData();
     formData.append("nama", namaBarang);
     formData.append("kondisi", kondisiBarang);
@@ -59,10 +66,12 @@ function EditBarang(props) {
     axios
       .post("/edit-barang", formData, { headers: headers })
       .then((res) => {
+        setIsLoading(false);
         console.log(res);
         props.history.push("/");
       })
       .catch((err) => {
+        setIsLoading(false);
         console.log(err);
         setErrorMSg(err.response.data.message);
         toggleModalBox();
@@ -140,6 +149,7 @@ function EditBarang(props) {
   return (
     <div className="container-tambah-barang">
       {showModalBox && <Modal msg={errorMsg} onToggle={toggleModalBox}></Modal>}
+      {isLoading && <LoadingSc></LoadingSc>}
       <form action="" className="form">
         <h3 className="title">Edit barang</h3>
         <div className="form_div">

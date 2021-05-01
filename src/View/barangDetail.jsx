@@ -3,6 +3,7 @@ import img from "../default.jpg";
 import "../css/barangDetail.css";
 import axios from "axios";
 import Modal from "../components/errorMsg.jsx";
+import LoadingSc from "../components/loadingScreen";
 
 function BarangDetail(props) {
   const [barang, setBarang] = React.useState({
@@ -22,9 +23,12 @@ function BarangDetail(props) {
 
   const [errorMsg, setErrorMSg] = React.useState("Error");
   const [showModalBox, setShowModalBox] = React.useState(false);
+  const [isLoading, setIsLoading] = React.useState(false);
 
   React.useEffect(() => {
     // Update the document title using the browser API
+    setIsLoading(true);
+
     let headers = { Authorization: "Bearer " + localStorage.getItem("token") };
 
     axios
@@ -32,11 +36,13 @@ function BarangDetail(props) {
         headers: headers,
       })
       .then((result) => {
+        setIsLoading(false);
         console.log(result);
         setBarang(result.data);
         // console.log(new Date(result.data.tanggal_masuk).toDateString());
       })
       .catch((err) => {
+        setIsLoading(false);
         console.log(err);
         setErrorMSg(err.response.data.message);
         toggleModalBox();
@@ -44,6 +50,7 @@ function BarangDetail(props) {
   }, []);
 
   function deleteBarang() {
+    setIsLoading(true);
     let body = {
       barangId: barang._id,
       milik: barang.milik,
@@ -56,10 +63,12 @@ function BarangDetail(props) {
         headers: headers,
       })
       .then((result) => {
+        setIsLoading(false);
         console.log(result);
         props.history.push("/");
       })
       .catch((err) => {
+        setIsLoading(false);
         setErrorMSg(err.response.data.message);
         toggleModalBox();
       });
@@ -81,6 +90,7 @@ function BarangDetail(props) {
   return (
     <div className="container-detail">
       {showModalBox && <Modal msg={errorMsg} onToggle={toggleModalBox}></Modal>}
+      {isLoading && <LoadingSc></LoadingSc>}
       <img
         src={"http://localhost:5000/" + barang.photo}
         alt=""

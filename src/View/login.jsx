@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "../css/login.css";
 import Modal from "../components/errorMsg.jsx";
 import axios from "axios";
+import LoadingSc from "../components/loadingScreen";
 
 function LoginPage(props) {
   const [username, setUsername] = useState("");
@@ -9,6 +10,7 @@ function LoginPage(props) {
   const [errorMsg, setErrorMSg] = React.useState("Error");
   const [errStatus, setErrStatus] = React.useState(0);
   const [showModalBox, setShowModalBox] = React.useState(false);
+  const [isLoading, setIsLoading] = React.useState(false);
 
   function toggleModalBox() {
     setShowModalBox(!showModalBox);
@@ -16,6 +18,8 @@ function LoginPage(props) {
 
   function login(e) {
     e.preventDefault();
+    setIsLoading(true);
+
     let body = {
       username,
       password,
@@ -23,11 +27,14 @@ function LoginPage(props) {
     axios
       .post("/login", body)
       .then((res) => {
+        setIsLoading(false);
+
         console.log(res);
         localStorage.setItem("token", res.data.accesToken);
         props.history.push("/");
       })
       .catch((err) => {
+        setIsLoading(false);
         console.log(err.response);
         if (err.response.status == 401) {
           setErrStatus(401);
@@ -47,6 +54,7 @@ function LoginPage(props) {
           history={props.history}
         ></Modal>
       )}
+      {isLoading && <LoadingSc></LoadingSc>}
       <form action="" className="form" onSubmit={login}>
         <h3 className="title">LOGIN</h3>
         <div className="form_div">

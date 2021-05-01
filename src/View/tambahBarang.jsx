@@ -2,6 +2,7 @@ import React from "react";
 import "../css/tambahBarang.css";
 import axios from "axios";
 import Modal from "../components/errorMsg.jsx";
+import LoadingSc from "../components/loadingScreen";
 
 function TambahBarang(props) {
   const [kondisiBarang, setKondisiBarang] = React.useState("Baik");
@@ -15,8 +16,10 @@ function TambahBarang(props) {
   const [errorMsg, setErrorMSg] = React.useState("Error");
   const [errStatus, setErrStatus] = React.useState(0);
   const [showModalBox, setShowModalBox] = React.useState(false);
+  const [isLoading, setIsLoading] = React.useState(false);
 
   function uploadBarang() {
+    setIsLoading(true);
     let formData = new FormData();
     formData.append("nama", namaBarang);
     formData.append("kondisi", kondisiBarang);
@@ -32,10 +35,12 @@ function TambahBarang(props) {
     axios
       .post("/tambah-barang", formData, { headers })
       .then((response) => {
+        setIsLoading(false);
         console.log(response);
         props.history.push("/");
       })
       .catch((err) => {
+        setIsLoading(false);
         console.log(err.response);
         if (err.response.status == 401) {
           setErrStatus(401);
@@ -117,6 +122,7 @@ function TambahBarang(props) {
           history={props.history}
         ></Modal>
       )}
+      {isLoading && <LoadingSc></LoadingSc>}
       <form action="" className="form">
         <h3 className="title">Tambah barang</h3>
         <div className="form_div">

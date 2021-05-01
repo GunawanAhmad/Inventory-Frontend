@@ -3,12 +3,14 @@ import "../css/beranda.css";
 import img from "../default.jpg";
 import axios from "axios";
 import Modal from "../components/errorMsg.jsx";
+import LoadingSc from "../components/loadingScreen";
 import { getLoginToken } from "../Helper/Helper.js";
 
 function Beranda(props) {
   const [milik, setMilik] = React.useState("Internal");
   const [status, setStatus] = React.useState("Semua");
   const [listBarang, setListBarang] = React.useState([]);
+  const [isLoading, setIsLoading] = React.useState(false);
   const selectMilik = React.createRef();
   const selectStatus = React.createRef();
   const [errorMsg, setErrorMSg] = React.useState("Error");
@@ -32,14 +34,17 @@ function Beranda(props) {
     setShowModalBox(!showModalBox);
   }
   function getBarangInternal() {
+    setIsLoading(true);
     let headers = { Authorization: "Bearer " + localStorage.getItem("token") };
 
     axios
       .get("/list-barang-internal", { headers: headers })
       .then((response) => {
         setListBarang(response.data);
+        setIsLoading(false);
       })
       .catch((err) => {
+        setIsLoading(false);
         console.log(err.response);
         if (err.response.status == 401) {
           setErrStatus(401);
@@ -50,13 +55,17 @@ function Beranda(props) {
   }
 
   function getBarangEksternal() {
+    setIsLoading(true);
     let headers = { Authorization: "Bearer " + localStorage.getItem("token") };
     axios
       .get("/list-barang-eksternal", { headers: headers })
       .then((response) => {
         setListBarang(response.data);
+        setIsLoading(false);
       })
       .catch((err) => {
+        setIsLoading(false);
+
         console.log(err.response);
         if (err.response.status == 401) {
           setErrStatus(401);
@@ -132,6 +141,7 @@ function Beranda(props) {
           history={props.history}
         ></Modal>
       )}
+      {isLoading && <LoadingSc></LoadingSc>}
       <section className="header-section">
         <div className="title-select-cont">
           <h1 className="title">Inventory</h1>
