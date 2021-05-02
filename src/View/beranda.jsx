@@ -50,7 +50,7 @@ function Beranda(props) {
         if (errStatus == 401) {
           setErrStatus(401);
         }
-        setErrorMSg(err.response.data.message);
+        setErrorMSg(err.response.data.message || "Error");
         toggleModalBox();
       });
   }

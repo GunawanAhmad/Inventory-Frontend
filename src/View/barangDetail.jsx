@@ -24,6 +24,7 @@ function BarangDetail(props) {
   const [errorMsg, setErrorMSg] = React.useState("Error");
   const [showModalBox, setShowModalBox] = React.useState(false);
   const [isLoading, setIsLoading] = React.useState(false);
+  const [errStatus, setErrStatus] = React.useState(0);
 
   React.useEffect(() => {
     // Update the document title using the browser API
@@ -37,12 +38,15 @@ function BarangDetail(props) {
         setIsLoading(false);
         console.log(result);
         setBarang(result.data);
-        // console.log(new Date(result.data.tanggal_masuk).toDateString());
       })
       .catch((err) => {
         setIsLoading(false);
         console.log(err);
-        setErrorMSg(err.response.data.message);
+        let errStatus = err.response.status || 0;
+        if (errStatus == 401) {
+          setErrStatus(401);
+        }
+        setErrorMSg(err.response.data.message || "Error");
         toggleModalBox();
       });
   }, []);
@@ -67,7 +71,11 @@ function BarangDetail(props) {
       })
       .catch((err) => {
         setIsLoading(false);
-        setErrorMSg(err.response.data.message);
+        let errStatus = err.response.status || 0;
+        if (errStatus == 401) {
+          setErrStatus(401);
+        }
+        setErrorMSg(err.response.data.message || "Error");
         toggleModalBox();
       });
   }
@@ -87,7 +95,13 @@ function BarangDetail(props) {
 
   return (
     <div className="container-detail">
-      {showModalBox && <Modal msg={errorMsg} onToggle={toggleModalBox}></Modal>}
+      {showModalBox && (
+        <Modal
+          msg={errorMsg}
+          errStatus={errStatus}
+          onToggle={toggleModalBox}
+        ></Modal>
+      )}
       {isLoading && <LoadingSc></LoadingSc>}
       <img
         src={"http://localhost:5000/" + barang.photo}
