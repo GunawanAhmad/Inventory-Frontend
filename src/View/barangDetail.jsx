@@ -28,9 +28,7 @@ function BarangDetail(props) {
   React.useEffect(() => {
     // Update the document title using the browser API
     setIsLoading(true);
-
     let headers = { Authorization: "Bearer " + localStorage.getItem("token") };
-
     axios
       .get(props.location.pathname + props.location.search, {
         headers: headers,
@@ -114,12 +112,28 @@ function BarangDetail(props) {
         <p className="label">Kondisi</p>
         <p className="content">{barang.kondisi}</p>
       </div>
-      <div className="section">
-        <p className="label">Tanggal masuk</p>
-        <p className="content">
-          {new Date(barang.tanggal_masuk).toDateString()}
-        </p>
-      </div>
+      {barang.milik.toLowerCase() == "internal" && (
+        <div className="section">
+          <p className="label">Tanggal masuk</p>
+          <p className="content">
+            {new Date(barang.tanggal_masuk).toDateString()}
+          </p>
+        </div>
+      )}
+      {barang.milik.toLowerCase() == "eksternal" && (
+        <>
+          <div className="section">
+            <p className="label">Nama barang</p>
+            <p className="content">{barang.nama_pemilik}</p>
+          </div>
+          <div className="section">
+            <p className="label">Tanggal masuk</p>
+            <p className="content">
+              {new Date(barang.tanggal_dipinjam).toDateString()}
+            </p>
+          </div>
+        </>
+      )}
       <div className="section">
         <p className="label">Jumlah</p>
         <p className="content">{barang.jumlah + " " + barang.satuan}</p>

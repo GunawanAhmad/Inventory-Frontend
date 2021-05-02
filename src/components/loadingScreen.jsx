@@ -4,7 +4,7 @@ import "../css/loadingScreen.css";
 function Loading(props) {
   return (
     <div className="container-loading-sc">
-      <div class="spinner"></div>
+      <div className="spinner"></div>
     </div>
   );
 }

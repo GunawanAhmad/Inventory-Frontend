@@ -45,8 +45,9 @@ function Beranda(props) {
       })
       .catch((err) => {
         setIsLoading(false);
-        console.log(err.response);
-        if (err.response.status == 401) {
+        console.log(err);
+        let errStatus = err.response.status || 0;
+        if (errStatus == 401) {
           setErrStatus(401);
         }
         setErrorMSg(err.response.data.message);
@@ -60,14 +61,16 @@ function Beranda(props) {
     axios
       .get("/list-barang-eksternal", { headers: headers })
       .then((response) => {
+        console.log(response);
         setListBarang(response.data);
         setIsLoading(false);
       })
       .catch((err) => {
         setIsLoading(false);
 
-        console.log(err.response);
-        if (err.response.status == 401) {
+        console.log(err);
+        let errStatus = err.response.status || 0;
+        if (errStatus == 401) {
           setErrStatus(401);
         }
         setErrorMSg(err.response.data.message);
@@ -235,10 +238,16 @@ function Beranda(props) {
                   <td>{filteredList.lokasi}</td>
                   <td>{filteredList.status}</td>
                   {milik.toLowerCase() == "internal" && (
-                    <td> {filteredList.tanggal_masuk.split("T")[0]}</td>
+                    <td>
+                      {" "}
+                      {new Date(filteredList.tanggal_masuk).toDateString()}
+                    </td>
                   )}
                   {milik.toLowerCase() == "eksternal" && (
-                    <td> {filteredList.tanggal_dipinjam.split("T")[0]}</td>
+                    <td>
+                      {" "}
+                      {new Date(filteredList.tanggal_dipinjam).toDateString()}
+                    </td>
                   )}
                   <td>
                     {filteredList.jumlah} {filteredList.satuan}
