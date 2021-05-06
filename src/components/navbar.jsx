@@ -1,16 +1,15 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Dropdown from "./dropDown";
-import { useLocation } from "react-router-dom";
+import { useLocation, useHistory } from "react-router-dom";
 import "../css/navbar.css";
 
 function Navbar(props) {
   const [dropdown, setDropdown] = useState(false);
-  const [onHover, setOnHover] = useState(false);
   const dropdownMenu = React.createRef();
   const location = useLocation();
   const [isNavbarVis, setNavbarVis] = React.useState(true);
-
+  const History = useHistory();
   function toggleDropdownMenu(e) {
     setDropdown(!dropdown);
   }
@@ -30,22 +29,20 @@ function Navbar(props) {
         <>
           <nav ref={dropdownMenu}>
             <ul>
-              <li className="back">
-                <Link to="/">
-                  <svg
-                    width="25"
-                    height="26"
-                    viewBox="0 0 33 26"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M3 13C7.49103 8.50897 14.5 1.5 14.5 1.5M3 13L14.5 24.5M3 13H33"
-                      stroke="black"
-                      strokeWidth="3"
-                    />
-                  </svg>
-                </Link>
+              <li className="back" onClick={History.goBack}>
+                <svg
+                  width="25"
+                  height="26"
+                  viewBox="0 0 33 26"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M3 13C7.49103 8.50897 14.5 1.5 14.5 1.5M3 13L14.5 24.5M3 13H33"
+                    stroke="black"
+                    strokeWidth="3"
+                  />
+                </svg>
               </li>
               <li>
                 <Link to="/">INVENTORY</Link>

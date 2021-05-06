@@ -43,11 +43,16 @@ a {
   color: var(--secondary-clr);
 }
 
+.header nav ul li a {
+  color: var(--secondary-clr);
+}
+
 .header nav ul li.back {
   margin-right: auto;
   display: flex;
   align-items: center;
   margin-left: 0;
+  cursor: pointer;
 }
 
 .header nav ul li input {
@@ -138,6 +143,7 @@ a {
   }
   .header nav ul li {
     margin: 0;
+    margin-left: 2rem;
   }
   .header nav ul li span {
     display: none;
