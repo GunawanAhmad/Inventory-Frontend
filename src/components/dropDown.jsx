@@ -2,23 +2,16 @@ import React, { useState } from "react";
 import { Link, BrowserRouter } from "react-router-dom";
 
 function Dropdown(props) {
-  function setHover() {
-    props.onHover();
-  }
-
-  function leaveHover() {
-    props.onLeave();
-  }
   return (
-    <ul onMouseOver={setHover} onMouseLeave={leaveHover}>
+    <ul>
       <Link to="/tambah-barang">
-        <li>Tambah barang</li>
+        <li onClick={props.toggleDrop}>Tambah barang</li>
       </Link>
       <Link to="/#">
-        <li>Download as CSV</li>
+        <li onClick={props.toggleDrop}>Download as CSV</li>
       </Link>
       <Link to="/#">
-        <li>Logout</li>
+        <li onClick={props.toggleDrop}>Logout</li>
       </Link>
     </ul>
   );

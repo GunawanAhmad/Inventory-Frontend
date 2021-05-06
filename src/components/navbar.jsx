@@ -1,79 +1,95 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Dropdown from "./dropDown";
+import { useLocation } from "react-router-dom";
 import "../css/navbar.css";
 
 function Navbar(props) {
   const [dropdown, setDropdown] = useState(false);
   const [onHover, setOnHover] = useState(false);
   const dropdownMenu = React.createRef();
+  const location = useLocation();
+  const [isNavbarVis, setNavbarVis] = React.useState(true);
 
-  function closeDropdownMenu(e) {
-    if (!onHover) {
-      setDropdown(false);
-    }
-    setTimeout(() => {
-      setDropdown(false);
-    }, 100);
-  }
-  function openDropdownMenu(e) {
+  function toggleDropdownMenu(e) {
     setDropdown(!dropdown);
   }
-  function setHover() {
-    setOnHover(true);
-  }
 
-  function leaveHover() {
-    setOnHover(false);
-  }
+  React.useEffect(() => {
+    let currLocation = location.pathname;
+    if (currLocation == "/login") {
+      setNavbarVis(false);
+    } else {
+      setNavbarVis(true);
+    }
+  }, [location]);
 
   return (
     <header className="header">
-      <nav ref={dropdownMenu}>
-        <ul>
-          <Link to="/">
-            <li>INVENTORY</li>
-          </Link>
-          <Link to="/history-peminajaman">
-            <li>
-              HISTORY <span>PEMINJAMAN</span>
-            </li>
-          </Link>
-          <li className="dropdown">
-            <input
-              type="text"
-              onBlur={closeDropdownMenu}
-              onClick={openDropdownMenu}
-            />
-            <svg
-              width="18"
-              height="18"
-              viewBox="0 0 64 64"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-              // ref={plusSvg}
-              className={dropdown ? "rotate" : ""}
-            >
-              <rect x="28" width="8" height="64" fill="#2C2C2C" />
-              <rect
-                x="64"
-                y="28"
-                width="8"
-                height="64"
-                transform="rotate(90 64 28)"
-                fill="#2C2C2C"
-              />
-            </svg>
+      {isNavbarVis && (
+        <>
+          <nav ref={dropdownMenu}>
+            <ul>
+              <li className="back">
+                <Link to="/">
+                  <svg
+                    width="25"
+                    height="26"
+                    viewBox="0 0 33 26"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M3 13C7.49103 8.50897 14.5 1.5 14.5 1.5M3 13L14.5 24.5M3 13H33"
+                      stroke="black"
+                      strokeWidth="3"
+                    />
+                  </svg>
+                </Link>
+              </li>
+              <li>
+                <Link to="/">INVENTORY</Link>
+              </li>
 
-            <span className="triangle"></span>
-            {dropdown ? (
-              <Dropdown onHover={setHover} onLeave={leaveHover}></Dropdown>
-            ) : (
-              ""
-            )}
-          </li>
-        </ul>
-      </nav>
+              <li>
+                <Link to="/history-peminajaman">
+                  HISTORY <span>PEMINJAMAN</span>
+                </Link>
+              </li>
+
+              <li className="dropdown">
+                <input type="text" onClick={toggleDropdownMenu} />
+                <svg
+                  width="18"
+                  height="18"
+                  viewBox="0 0 64 64"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                  // ref={plusSvg}
+                  className={dropdown ? "rotate" : ""}
+                >
+                  <rect x="28" width="8" height="64" fill="#2C2C2C" />
+                  <rect
+                    x="64"
+                    y="28"
+                    width="8"
+                    height="64"
+                    transform="rotate(90 64 28)"
+                    fill="#2C2C2C"
+                  />
+                </svg>
+
+                <span className="triangle"></span>
+                {dropdown ? (
+                  <Dropdown toggleDrop={toggleDropdownMenu}></Dropdown>
+                ) : (
+                  ""
+                )}
+              </li>
+            </ul>
+          </nav>
+        </>
+      )}
     </header>
   );
 }

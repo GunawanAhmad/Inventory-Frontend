@@ -8,21 +8,19 @@ import EditBarang from "./View/editBarang";
 import "./css/app.css";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
-function App() {
+function App(props) {
   return (
-    <div className="App">
-      <div className="app-container">
-        <Router>
-          <Navbar />
-          <Switch>
-            <Route exact path="/" component={Beranda} />
-            <Route path="/tambah-barang" component={TambahBarang} />
-            <Route path="/edit-barang/:query" component={EditBarang} />
-            <Route path="/login" component={Login} />
-            <Route path="/:query" component={BarangDetail} />
-          </Switch>
-        </Router>
-      </div>
+    <div className="app-container">
+      <Router>
+        <Navbar />
+        <Switch>
+          <Route exact path="/" component={Beranda} />
+          <Route path="/tambah-barang" component={TambahBarang} />
+          <Route path="/edit-barang/:query" component={EditBarang} />
+          <Route path="/login" component={Login} />
+          <Route path="/:query" component={BarangDetail} />
+        </Switch>
+      </Router>
     </div>
   );
 }
