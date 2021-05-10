@@ -2,6 +2,10 @@ import React, { useState } from "react";
 import { Link, BrowserRouter } from "react-router-dom";
 
 function Dropdown(props) {
+  function Logout() {
+    localStorage.removeItem("token");
+    props.toggleDrop();
+  }
   return (
     <ul>
       <Link to="/tambah-barang">
@@ -10,8 +14,8 @@ function Dropdown(props) {
       <Link to="/#">
         <li onClick={props.toggleDrop}>Download as CSV</li>
       </Link>
-      <Link to="/#">
-        <li onClick={props.toggleDrop}>Logout</li>
+      <Link to="/login">
+        <li onClick={Logout}>Logout</li>
       </Link>
     </ul>
   );
