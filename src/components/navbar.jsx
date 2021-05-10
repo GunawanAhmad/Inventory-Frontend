@@ -48,12 +48,6 @@ function Navbar(props) {
                 <Link to="/">INVENTORY</Link>
               </li>
 
-              <li>
-                <Link to="/history-peminajaman">
-                  HISTORY <span>PEMINJAMAN</span>
-                </Link>
-              </li>
-
               <li className="dropdown">
                 <input type="text" onClick={toggleDropdownMenu} />
                 <svg

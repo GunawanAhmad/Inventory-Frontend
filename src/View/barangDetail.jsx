@@ -104,7 +104,7 @@ function BarangDetail(props) {
       )}
       {isLoading && <LoadingSc></LoadingSc>}
       <img
-        src={"http://localhost:5000/" + barang.photo}
+        src={axios.defaults.baseURL + "/" + barang.photo}
         alt=""
         className="img"
         onError={setErrorPhoto}
@@ -137,7 +137,7 @@ function BarangDetail(props) {
       {barang.milik.toLowerCase() == "eksternal" && (
         <>
           <div className="section">
-            <p className="label">Nama barang</p>
+            <p className="label">Nama pemilik</p>
             <p className="content">{barang.nama_pemilik}</p>
           </div>
           <div className="section">

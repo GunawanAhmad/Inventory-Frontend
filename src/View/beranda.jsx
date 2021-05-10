@@ -224,7 +224,7 @@ function Beranda(props) {
                 >
                   <td className="item-img">
                     <img
-                      src={"http://localhost:5000/" + filteredList.photo}
+                      src={axios.defaults.baseURL + "/" + filteredList.photo}
                       onError={setErrorPhoto}
                     />
                   </td>

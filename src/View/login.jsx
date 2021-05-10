@@ -5,8 +5,8 @@ import axios from "axios";
 import LoadingSc from "../components/loadingScreen";
 
 function LoginPage(props) {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+  const [username, setUsername] = useState("theonlyadmin");
+  const [password, setPassword] = useState("oneandonlyadmin");
   const [errorMsg, setErrorMSg] = React.useState("Error");
   const [errStatus, setErrStatus] = React.useState(0);
   const [showModalBox, setShowModalBox] = React.useState(false);
@@ -64,6 +64,7 @@ function LoginPage(props) {
             id="username"
             required
             className="input"
+            value={username}
             onChange={(e) => setUsername(e.target.value)}
           />
           <label htmlFor="username" className="label">
@@ -77,6 +78,7 @@ function LoginPage(props) {
             id="password"
             required
             className="input"
+            value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
           <label htmlFor="password" className="label">
