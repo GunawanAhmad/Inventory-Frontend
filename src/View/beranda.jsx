@@ -5,9 +5,10 @@ import axios from "axios";
 import Modal from "../components/errorMsg.jsx";
 import LoadingSc from "../components/loadingScreen";
 import { getLoginToken } from "../Helper/Helper.js";
+import { MilikContext } from "../contextAPI";
 
 function Beranda(props) {
-  const [milik, setMilik] = React.useState("Internal");
+  // const [milik, setMilik] = React.useState("Internal");
   const [status, setStatus] = React.useState("Semua");
   const [listBarang, setListBarang] = React.useState([]);
   const [isLoading, setIsLoading] = React.useState(false);
@@ -16,6 +17,7 @@ function Beranda(props) {
   const [errorMsg, setErrorMSg] = React.useState("Error");
   const [errStatus, setErrStatus] = React.useState(0);
   const [showModalBox, setShowModalBox] = React.useState(false);
+  const [milik, setMilik] = React.useContext(MilikContext);
 
   React.useEffect(() => {
     // Update the document title using the browser API

@@ -97,22 +97,21 @@
               transform: rotate(180deg);
             }
 
-            a {
-              li {
-                padding: 0.5rem 2rem;
-                margin: 0;
-                display: flex;
-                justify-content: flex-start;
-                align-items: center;
+            .drop-list {
+              margin: 0;
+              display: flex;
+              justify-content: flex-start;
+              align-items: center;
 
+              a {
+                padding: 0.5rem 2rem;
+                width: 100%;
+                // color: red;
+                // background-color: red;
                 &:hover {
                   background-color: var(--secondary-clr);
                   color: white;
                 }
-              }
-
-              &:hover {
-                background-color: var(--secondary-clr);
               }
             }
           }

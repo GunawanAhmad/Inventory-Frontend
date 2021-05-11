@@ -120,21 +120,21 @@ a {
   transform: rotate(180deg);
 }
 
-.header nav ul li.dropdown ul a li {
-  padding: 0.5rem 2rem;
+.header nav ul li.dropdown ul .drop-list {
   margin: 0;
   display: flex;
   justify-content: flex-start;
   align-items: center;
 }
 
-.header nav ul li.dropdown ul a li:hover {
-  background-color: var(--secondary-clr);
-  color: white;
+.header nav ul li.dropdown ul .drop-list a {
+  padding: 0.5rem 2rem;
+  width: 100%;
 }
 
-.header nav ul li.dropdown ul a:hover {
+.header nav ul li.dropdown ul .drop-list a:hover {
   background-color: var(--secondary-clr);
+  color: white;
 }
 
 @media only screen and (max-width: 600px) {
