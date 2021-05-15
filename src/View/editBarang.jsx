@@ -162,6 +162,7 @@ function EditBarang(props) {
           msg={errorMsg}
           errStatus={errStatus}
           onToggle={toggleModalBox}
+          history={props.history}
         ></Modal>
       )}
       {isLoading && <LoadingSc></LoadingSc>}
