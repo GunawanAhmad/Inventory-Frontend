@@ -1,4 +1,4 @@
-#Inventory Web app
+# Inventory Web app
 
 This is my github repo for the client side of my inventory web app. for the backend side go check https://github.com/GunawanAhmad/Inventory-API.
 For the demo go check https://inventory-web-app.herokuapp.com/
