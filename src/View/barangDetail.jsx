@@ -105,7 +105,7 @@ function BarangDetail(props) {
       )}
       {isLoading && <LoadingSc></LoadingSc>}
       <img
-        src={axios.defaults.baseURL + "/" + barang.photo}
+        src={barang.photo ? barang.photo : ""}
         alt=""
         className="img"
         onError={setErrorPhoto}

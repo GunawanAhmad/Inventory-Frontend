@@ -42,6 +42,7 @@ function Beranda(props) {
     axios
       .get("/list-barang-internal", { headers: headers })
       .then((response) => {
+        console.log(response);
         setListBarang(response.data);
         setIsLoading(false);
       })
@@ -226,7 +227,7 @@ function Beranda(props) {
                 >
                   <td className="item-img">
                     <img
-                      src={axios.defaults.baseURL + "/" + filteredList.photo}
+                      src={filteredList.photo ? filteredList.photo : "no"}
                       onError={setErrorPhoto}
                     />
                   </td>
