@@ -1,3 +1,8 @@
+# Inventory Web app
+
+This is my github repo for the client side of my inventory web app. for the backend side go check https://github.com/GunawanAhmad/Inventory-API.
+For the demo go check https://inventory-web-app.herokuapp.com/
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
