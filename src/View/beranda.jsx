@@ -1,6 +1,5 @@
 import React from "react";
 import "../css/beranda.css";
-import img from "../default.jpg";
 import axios from "axios";
 import Modal from "../components/errorMsg.jsx";
 import LoadingSc from "../components/loadingScreen";
@@ -8,7 +7,6 @@ import { getLoginToken } from "../Helper/Helper.js";
 import { MilikContext } from "../contextAPI";
 
 function Beranda(props) {
-  // const [milik, setMilik] = React.useState("Internal");
   const [status, setStatus] = React.useState("Semua");
   const [listBarang, setListBarang] = React.useState([]);
   const [isLoading, setIsLoading] = React.useState(false);
@@ -129,10 +127,6 @@ function Beranda(props) {
     }
   }
 
-  function setErrorPhoto(e) {
-    e.target.src = img;
-  }
-
   function getBarangDetail(barangId) {
     props.history.push("/barang?barangId=" + barangId + "&milik=" + milik);
   }
@@ -226,10 +220,12 @@ function Beranda(props) {
                   onClick={() => getBarangDetail(filteredList._id)}
                 >
                   <td className="item-img">
-                    <img
-                      src={filteredList.photo ? filteredList.photo : "no"}
-                      onError={setErrorPhoto}
-                    />
+                    <div
+                      className="image-container"
+                      style={{
+                        backgroundImage: "url(" + filteredList.photo + ")",
+                      }}
+                    ></div>
                   </td>
                   <td className="item-name">
                     {filteredList.nama}{" "}
